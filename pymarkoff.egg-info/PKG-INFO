@@ -1,0 +1,28 @@
+Metadata-Version: 1.1
+Name: pymarkoff
+Version: 0.1.0
+Summary: A simple Markov chain modeller and generator aimed for word and sentence generation.
+Home-page: https://bitbucket.org/TheCDC/pymarkoff
+Author: Christopher Chen
+Author-email: christopher.chen1995@gmail.com
+License: Public Domain
+Download-URL: https://bitbucket.org/TheCDC/pymarkoff/get/HEAD.zip
+Description: Originally a proof of concept, I've used this in enough projects that I've decided to publish it tomake it easier to import.
+        #Basic Use
+        
+        Instantiate with `m = markoff.Markov(seeds)` where `seeds` is an iterable of sub-iterables. Each sub-iterable being a chain in the set of chains you want to model.
+        
+        You can supply it with just one chain or many.
+        
+        Then use `m.generate(max_length=100)` to produce a single chain limited to `max_length` automatically terminating at any character of `.!?`.
+        You can also supply a `terminators` argument to make the chain
+        
+        
+Keywords: markov chain model generator
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Operating System :: OS Independent

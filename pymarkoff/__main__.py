@@ -55,6 +55,10 @@ class Markov:
                         pass
 
     def generate(self, *, max_length=100, terminators=('.', '?', '!'), sep=' '):
+        """Returns a list of states chosen by simulation.
+        Simulation starts from a state chosen fro mknown head states
+        and ends at either a known terminating state or when the chain
+        reaches max_length, whichever comes first."""
         result = []
         state = Head()
         choice = ''
