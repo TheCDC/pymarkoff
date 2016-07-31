@@ -6,7 +6,7 @@ setup(name='pymarkoff',
       version='0.1.0',
       description="""A simple Markov chain modeller and generator aimed for word and sentence generation.""",
       long_description="Originally a proof of concept, I've used this in enough projects that I've decided to publish it tomake it easier to import.\n"
-      "",
+      "Instantiate with ",
       classifiers=[
           "Programming Language :: Python",
           "Programming Language :: Python :: 3",

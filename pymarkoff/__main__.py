@@ -5,6 +5,10 @@ import re
 import random
 import time
 
+class Head():
+    """A dummy class used to anchor the beginning of an input chain."""
+    def __len__(self):
+        return 0
 
 class Markov:
 
@@ -25,9 +29,15 @@ class Markov:
         self.cur_state = self.start
 
     def feed(self, seeds, sep=' '):
-        """Feed the generator with a list of seeds (iterables)."""
+        """Feed the generator with a list of seeds (iterables).
+        I.e. m = pymarkoff.Markov()
+        m.feed([['The','quick','brown','fox','jumped','over','the','lazy','dog.']])
+        m.generate() => ['The','lazy','dog.']
+
+        """
         for seed in seeds:
             # print(seed)
+            seed = [Head()] + seed
             for cur_order in self.orders:
                 # for each head + tail
                 # Or rather count(tail|head)
@@ -46,11 +56,10 @@ class Markov:
 
     def generate(self, *, max_length=100, terminators=('.', '?', '!'), sep=' '):
         result = []
-        state = ""
+        state = Head()
         choice = ''
         i = 0
-        while i <= max_length and not set(
-                terminators).intersection(set(state)):
+        while i <= max_length and not state in terminators:
             # check for transitions in the highest allowed order first
             # then check lower orders
             for cur_order in self.orders[::-1]:
@@ -63,7 +72,7 @@ class Markov:
                 except KeyError as e:
                     # A KeyError happens where there aren't transitions for an
                     # arbitrary higher order state
-                    # In which case, continue to the next lowest order
+                    # In which case, carry on and continue to the next lowest order.
                     pass
 
             state = choice
@@ -103,40 +112,33 @@ def filter_by_user(data):
 
 
 def main():
-    with open("good.txt") as g:
-        good = g.read().split('\n')
-    with open("sample.txt") as f:
-            # this bit is just massaging the text into usable data
-        samples = [prepare_str(line) for line in f.read().split(
-            "\n") + good if len(line) > 0]
+    pass
+    # with open("good.txt") as g:
+    #     good = g.read().split('\n')
+    # with open("sample.txt") as f:
+    #         # this bit is just massaging the text into usable data
+    #     samples = [prepare_str(line) for line in f.read().split(
+    #         "\n") + good if len(line) > 0]
 
-    seeds = samples[:]
-
-    m = Markov(seeds, (0, 1))
+    seeds = ["the quick brown fox jumped over the lazy dog".split(' ') + ['.']]
+    print(seeds)
+    m = Markov(seeds)
 
     with open("transitions.txt", 'w') as f:
         f.write(pp.pformat(dict(m)))
 
     # generate some sentences
-    results_o = tuple(m.generate(20) for i in range(10))
+    results_o = tuple(m.generate(max_length=20) for i in range(10))
     # pp.pprint(results_o)
     # feed those back in
     # This is a method of telling the generator what is "good" input
     # TRAINING it
     # m.feed([ prepare_str(i) for i in results_o])
-    results_f = tuple(' '.join(m.generate(30)) for i in range(25))
+    results_f = tuple(' '.join(m.generate(max_length=30)) for i in range(25))
     ascending = sorted(results_f, key=lambda s: len(s))
-    print("\n\n".join(ascending))
+    print("\n".join(results_f))
     print()
-    with open("results.txt", 'w') as f:
-        f.write('\n\n'.join(ascending))
-    print(dict(m))
-    selected = filter_by_user(ascending[::-1])
-
-    with open("good.txt", "w") as f:
-        f.write('\n'.join(good + selected))
-
-    print("Done.")
+    pp.pprint(dict(m))
 
 if __name__ == '__main__':
     main()

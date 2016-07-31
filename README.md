@@ -5,5 +5,6 @@ Instantiate with `m = markoff.Markov(seeds)` where `seeds` is an iterable of sub
 
 You can supply it with just one chain or many.
 
-
+Then use `m.generate(max_length=100)` to produce a single chain limited to `max_length` automatically terminating at any character of `.!?`.
+You can also supply a `terminators` argument to make the chain
 
