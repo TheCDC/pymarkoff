@@ -128,9 +128,6 @@ def main():
     # print(seeds)
     m = Markov(seeds)
 
-    with open("transitions.txt", 'w') as f:
-        f.write(pp.pformat(dict(m)))
-
     # generate some sentences
     results_o = tuple(m.generate(max_length=20) for i in range(10))
     # pp.pprint(results_o)
