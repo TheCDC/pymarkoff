@@ -125,7 +125,7 @@ def main():
     #         "\n") + good if len(line) > 0]
 
     seeds = ["the quick brown fox jumped over the lazy dog".split(' ') + ['.']]
-    print(seeds)
+    # print(seeds)
     m = Markov(seeds)
 
     with open("transitions.txt", 'w') as f:
@@ -138,11 +138,11 @@ def main():
     # This is a method of telling the generator what is "good" input
     # TRAINING it
     # m.feed([ prepare_str(i) for i in results_o])
-    results_f = tuple(' '.join(m.generate(max_length=30)) for i in range(25))
-    ascending = sorted(results_f, key=lambda s: len(s))
-    print("\n".join(results_f))
-    print()
-    pp.pprint(dict(m))
+    results_f = tuple((m.generate(max_length=30)) for i in range(5))
+    # ascending = sorted(results_f, key=lambda s: len(s))
+    # print("\n".join(results_f))
+    pp.pprint(results_f)
+    # pp.pprint(dict(m))
 
 if __name__ == '__main__':
     main()

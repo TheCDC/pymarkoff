@@ -15,6 +15,30 @@ limited to ``max_length`` automatically terminating at any character of
 ``.!?``. You can also supply a ``terminators`` argument to make the
 chain
 
+Example
+=======
+
+Code
+----
+
+::
+
+    m = markoff.Markov([['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.']])
+    [m.generate() i for i in range(5)]
+
+Output
+------
+
+::
+
+    (
+        ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
+        ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
+        ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
+        ['the', 'lazy', 'dog', '.'],
+        ['the', 'lazy', 'dog', '.']
+    )
+
 Notes
 =====
 

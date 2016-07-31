@@ -1,0 +1,9 @@
+{(): ['the'],
+ ('brown',): ['fox'],
+ ('dog',): ['.'],
+ ('fox',): ['jumped'],
+ ('jumped',): ['over'],
+ ('lazy',): ['dog'],
+ ('over',): ['the'],
+ ('quick',): ['brown'],
+ ('the',): ['lazy', 'quick']}

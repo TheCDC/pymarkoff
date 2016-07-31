@@ -8,7 +8,7 @@ if os.path.exists('README.txt'):
 setup(name='pymarkoff',
       author='Christopher Chen',
       author_email='christopher.chen1995@gmail.com',
-      version='0.1.2',
+      version='0.1.3',
       description="""A simple Markov chain modeller and generator aimed for word and sentence generation.""",
       long_description=long_description,
       classifiers=[
