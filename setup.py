@@ -1,11 +1,16 @@
 from setuptools import setup
 
+import os
+long_description = 'Add a fallback short description here'
+if os.path.exists('README.txt'):
+    long_description = open('README.txt').read()
+
 setup(name='pymarkoff',
       author='Christopher Chen',
       author_email='christopher.chen1995@gmail.com',
-      version='0.1.0',
+      version='0.1.2',
       description="""A simple Markov chain modeller and generator aimed for word and sentence generation.""",
-      long_description=open("README.md").read(),
+      long_description=long_description,
       classifiers=[
           "Programming Language :: Python",
           "Programming Language :: Python :: 3",

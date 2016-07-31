@@ -1,3 +1,4 @@
+README.txt
 setup.py
 pymarkoff/__init__.py
 pymarkoff/__main__.py

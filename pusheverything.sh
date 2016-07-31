@@ -1,0 +1,5 @@
+#!/bin/bash
+git add .
+read comment
+git commit -m "$comment"
+git push
