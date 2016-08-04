@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pymarkoff
-Version: 0.2.1
+Version: 0.2.2
 Summary: A simple Markov chain modeller and generator aimed for word and sentence generation.
 Home-page: https://bitbucket.org/TheCDC/pymarkoff
 Author: Christopher Chen
@@ -41,13 +41,13 @@ Description: Originally a proof of concept, I've used this in enough projects th
         
         ::
         
-            (
+            [
                 ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
                 ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
                 ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
                 ['the', 'lazy', 'dog', '.'],
                 ['the', 'lazy', 'dog', '.']
-            )
+            ]
         
         Notes
         =====

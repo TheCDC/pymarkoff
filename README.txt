@@ -32,13 +32,13 @@ Output
 
 ::
 
-    (
+    [
         ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
         ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
         ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
         ['the', 'lazy', 'dog', '.'],
         ['the', 'lazy', 'dog', '.']
-    )
+    ]
 
 Notes
 =====
