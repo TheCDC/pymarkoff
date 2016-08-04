@@ -1,5 +1,6 @@
 Originally a proof of concept, I've used this in enough projects that
-I've decided to publish it tomake it easier to import.
+I've decided to publish it tomake it easier to import. The name is a
+play on words similar to Markup/Markdown.
 
 Basic Use
 =========
@@ -43,4 +44,4 @@ Notes
 =====
 
 This module is still under development and is mostly for me to play
-around with to learn Markov Chains. Cheers.
+around with and learn Markov Chains. Cheers.

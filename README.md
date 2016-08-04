@@ -1,4 +1,5 @@
 Originally a proof of concept, I've used this in enough projects that I've decided to publish it tomake it easier to import.
+The name is a play on words similar to Markup/Markdown.
 
 # Basic Use #
 
@@ -21,14 +22,14 @@ m = markoff.Markov([['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'l
 ## Output ##
 
 ```
-(
+[
 	['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
 	['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
 	['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
 	['the', 'lazy', 'dog', '.'],
 	['the', 'lazy', 'dog', '.']
-)
+]
 ```
 # Notes #
 
-This module is still under development and is mostly for me to play around with to learn Markov Chains. Cheers.
+This module is still under development and is mostly for me to play around with and learn Markov Chains. Cheers.

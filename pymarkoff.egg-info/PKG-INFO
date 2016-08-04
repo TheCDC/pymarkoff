@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pymarkoff
-Version: 0.1.3
+Version: 0.2.1
 Summary: A simple Markov chain modeller and generator aimed for word and sentence generation.
 Home-page: https://bitbucket.org/TheCDC/pymarkoff
 Author: Christopher Chen
@@ -8,7 +8,8 @@ Author-email: christopher.chen1995@gmail.com
 License: Public Domain
 Download-URL: https://bitbucket.org/TheCDC/pymarkoff/get/HEAD.zip
 Description: Originally a proof of concept, I've used this in enough projects that
-        I've decided to publish it tomake it easier to import.
+        I've decided to publish it tomake it easier to import. The name is a
+        play on words similar to Markup/Markdown.
         
         Basic Use
         =========
@@ -52,7 +53,7 @@ Description: Originally a proof of concept, I've used this in enough projects th
         =====
         
         This module is still under development and is mostly for me to play
-        around with to learn Markov Chains. Cheers.
+        around with and learn Markov Chains. Cheers.
         
 Keywords: markov chain model generator
 Platform: UNKNOWN
