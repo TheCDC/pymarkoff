@@ -1,2 +1,0 @@
-import pymarkoff
-pymarkoff.main()
