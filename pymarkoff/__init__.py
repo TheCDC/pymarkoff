@@ -11,7 +11,8 @@ class Head():
 
     def __len__(self):
         return 0
-
+class Tail():
+    pass
 
 class Markov:
 
@@ -40,7 +41,7 @@ class Markov:
         """
         for seed in seeds:
             # print(seed)
-            seed = [Head()] + seed
+            seed = [Head()] + seed + [Tail()]
             for cur_order in self.orders:
                 # for each head + tail
                 # Or rather count(tail|head)
@@ -57,7 +58,7 @@ class Markov:
                     except IndexError:
                         pass
 
-    def generate(self, *, max_length=100, terminators=('.', '?', '!'), sep=' '):
+    def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
         """Returns a list of states chosen by simulation.
         Simulation starts from a state chosen fro mknown head states
         and ends at either a known terminating state or when the chain
@@ -66,7 +67,7 @@ class Markov:
         state = Head()
         choice = ''
         i = 0
-        while i <= max_length and not state in terminators:
+        while i <= max_length and (not state in terminators):
             # check for transitions in the highest allowed order first
             # then check lower orders
             for cur_order in self.orders[::-1]:
