@@ -124,10 +124,32 @@ def filter_by_user(data):
 
 
 def main():
-    seeds = ["the quick brown fox jumped over the lazy dog".split(' ') + ['.']]
+    s = """Ana
+Bastion
+D.Va
+Genji
+Hanzo
+Junkrat
+Lúcio
+McCree
+Mei
+Mercy
+Pharah
+Reaper
+Reinhardt
+Roadhog
+Soldier: 76
+Symmetra
+Torbjörn
+Tracer
+Widowmaker
+Winston
+Zarya
+Zenyatta"""
+    seeds = [list(i) for i in s.split('\n')]
     m = Markov(seeds)
 
-    results_f = tuple((m.generate(max_length=30)) for i in range(5))
+    results_f = [''.join(m.generate(max_length=30)) for i in range(10)]
     pp.pprint(results_f)
 
 if __name__ == '__main__':
