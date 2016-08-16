@@ -12,15 +12,18 @@ class Head():
     def __len__(self):
         return 0
 class Tail():
-    pass
+    def __len__(self):
+        return 0
+    def __str__(Self):
+        return ''
 
 class Markov:
 
     """Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
-    The emptystring is used as the entry point every time generate() is called."""
+    The Head object is used as the entry point every time generate() is called."""
     empty = dict()
-    start = "\n"
+    start = Head()
 
     def __init__(self, seeds, orders=(0,)):
         """Seeds should be an iterable or iterables.
@@ -67,7 +70,7 @@ class Markov:
         state = Head()
         choice = ''
         i = 0
-        while i <= max_length and (not state in terminators):
+        while i <= max_length and not isinstance(state,Tail):
             # check for transitions in the highest allowed order first
             # then check lower orders
             for cur_order in self.orders[::-1]:
@@ -87,7 +90,7 @@ class Markov:
             state = choice
             result.append(choice)
             i += 1
-        return result
+        return result[:-1] #slice off the tail
 
     def __str__(self):
         return str(self.transitions)
