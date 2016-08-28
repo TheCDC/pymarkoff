@@ -11,15 +11,19 @@ class Head():
 
     def __len__(self):
         return 0
-
+class Tail():
+    def __len__(self):
+        return 0
+    def __str__(Self):
+        return ''
 
 class Markov:
 
     """Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
-    The emptystring is used as the entry point every time generate() is called."""
+    The Head object is used as the entry point every time generate() is called."""
     empty = dict()
-    start = "\n"
+    start = Head()
 
     def __init__(self, seeds, orders=(0,)):
         """Seeds should be an iterable or iterables.
@@ -40,7 +44,7 @@ class Markov:
         """
         for seed in seeds:
             # print(seed)
-            seed = [Head()] + seed
+            seed = [Head()] + seed + [Tail()]
             for cur_order in self.orders:
                 # for each head + tail
                 # Or rather count(tail|head)
@@ -57,7 +61,7 @@ class Markov:
                     except IndexError:
                         pass
 
-    def generate(self, *, max_length=100, terminators=('.', '?', '!'), sep=' '):
+    def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
         """Returns a list of states chosen by simulation.
         Simulation starts from a state chosen fro mknown head states
         and ends at either a known terminating state or when the chain
@@ -66,7 +70,7 @@ class Markov:
         state = Head()
         choice = state
         i = 0
-        while i <= max_length and not state in terminators:
+        while i <= max_length and not isinstance(state,Tail):
             # check for transitions in the highest allowed order first
             # then check lower orders
             for cur_order in self.orders[::-1]:
@@ -86,7 +90,7 @@ class Markov:
             state = choice
             result.append(choice)
             i += 1
-        return result
+        return result[:-1] #slice off the tail
 
     def __str__(self):
         return str(self.transitions)
@@ -120,10 +124,32 @@ def filter_by_user(data):
 
 
 def main():
-    seeds = ["the quick brown fox jumped over the lazy dog".split(' ') + ['.']]
+    s = """Ana
+Bastion
+D.Va
+Genji
+Hanzo
+Junkrat
+Lúcio
+McCree
+Mei
+Mercy
+Pharah
+Reaper
+Reinhardt
+Roadhog
+Soldier: 76
+Symmetra
+Torbjörn
+Tracer
+Widowmaker
+Winston
+Zarya
+Zenyatta"""
+    seeds = [list(i) for i in s.split('\n')]
     m = Markov(seeds)
 
-    results_f = tuple((m.generate(max_length=30)) for i in range(5))
+    results_f = [''.join(m.generate(max_length=30)) for i in range(10)]
     pp.pprint(results_f)
 
 if __name__ == '__main__':
