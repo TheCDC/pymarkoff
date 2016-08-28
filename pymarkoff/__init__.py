@@ -64,7 +64,7 @@ class Markov:
         reaches max_length, whichever comes first."""
         result = []
         state = Head()
-        choice = ''
+        choice = state
         i = 0
         while i <= max_length and not state in terminators:
             # check for transitions in the highest allowed order first
