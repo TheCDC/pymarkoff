@@ -4,18 +4,42 @@ import pprint as pp
 import re
 import random
 import time
+import itertools
+import bisect
+from collections import Counter
 
 
 class Head():
+
     """A dummy class used to anchor the beginning of an input chain."""
 
     def __len__(self):
         return 0
+
+    def __str__(self):
+        return "[Head]"
+
+    def __repr__(self):
+        return "[Head]"
+
+    def __cmp__(self,other):
+        if isinstance(other,str):
+            return -1
+
 class Tail():
+
     def __len__(self):
         return 0
-    def __str__(Self):
-        return ''
+
+    def __str__(self):
+        return "[Tail]"
+
+    def __repr__(self):
+        return "[Tail]"
+
+    def __cmp__(self,other):
+        if isinstance(other,str):
+            return 1
 
 class Markov:
 
@@ -54,10 +78,10 @@ class Markov:
                             s for s in seed[i:i + cur_order + 1] if len(s) > 0)
 
                         tail = seed[i + cur_order + 1]
-                        self.transitions[head].append(tail
+                        self.transitions[head].update([tail]
                                                       )
                     except KeyError:
-                        self.transitions[head] = [tail]
+                        self.transitions[head] = Counter([tail])
                     except IndexError:
                         pass
 
@@ -70,7 +94,7 @@ class Markov:
         state = Head()
         choice = state
         i = 0
-        while i <= max_length and not isinstance(state,Tail):
+        while i <= max_length and not isinstance(state, Tail):
             # check for transitions in the highest allowed order first
             # then check lower orders
             for cur_order in self.orders[::-1]:
@@ -78,7 +102,9 @@ class Markov:
                     # reach back for a sequence of states of length less equal
                     # to the current order.
                     temp_state = tuple(result[-(cur_order + 1):len(result)])
-                    choice = random.choice(self.transitions[temp_state])
+                    # choice = random.choice(self.transitions[temp_state])
+                    choice = weighted_random(
+                        *list(zip(*list(self.transitions[temp_state].items())[::-1])))
                     break
                 except KeyError as e:
                     # A KeyError happens where there aren't transitions for an
@@ -90,14 +116,21 @@ class Markov:
             state = choice
             result.append(choice)
             i += 1
-        return result[:-1] #slice off the tail
+        return result[:-1]  # slice off the tail
 
     def __str__(self):
         return str(self.transitions)
 
     def __iter__(self):
         for t in self.transitions.items():
-            yield (t[0], sorted(t[1]))
+            # yield (t[0],sorted(t[1]))
+            yield t
+
+
+def weighted_random(choices, weights):
+    cumdist = list(itertools.accumulate(weights))
+    x = random.random() * cumdist[-1]
+    return choices[bisect.bisect(cumdist, x)]
 
 
 def prepare_str(s):
@@ -147,11 +180,11 @@ Winston
 Zarya
 Zenyatta"""
     seeds = [list(i) for i in s.split('\n')]
-    m = Markov(seeds)
+    m = Markov(seeds,(0,))
 
     results_f = [''.join(m.generate(max_length=30)) for i in range(10)]
     pp.pprint(results_f)
-
+    # pp.pprint(dict(m))
 if __name__ == '__main__':
     main()
 
