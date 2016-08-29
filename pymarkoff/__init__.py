@@ -180,9 +180,11 @@ Winston
 Zarya
 Zenyatta"""
     seeds = [list(i) for i in s.split('\n')]
+    seeds = ["The quick brown fox jumped over the lazy dog.".split(' ') , "Jack and Jill ran up the hill to fetch a pail of water.".split(' ')]
+    pp.pprint(seeds)
     m = Markov(seeds,(0,))
 
-    results_f = [''.join(m.generate(max_length=30)) for i in range(10)]
+    results_f = [' '.join(m.generate(max_length=30)) for i in range(5)]
     pp.pprint(results_f)
     # pp.pprint(dict(m))
 if __name__ == '__main__':

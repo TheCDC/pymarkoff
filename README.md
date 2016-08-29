@@ -15,7 +15,12 @@ You can also supply a `terminators` argument to make the chain
 ## Code ##
 
 ```
-m = markoff.Markov([['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.']])
+m = markoff.Markov(
+	[
+		['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.'],
+		['Jack', 'and', 'Jill', 'ran', 'up', 'the', 'hill', 'to', 'fetch', 'a', 'pail', 'of', 'water.']
+	]
+)
 [m.generate() i for i in range(5)]
 ```
 
@@ -23,12 +28,12 @@ m = markoff.Markov([['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'l
 
 ```
 [
-	['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
-	['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
-	['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
-	['the', 'lazy', 'dog', '.'],
-	['the', 'lazy', 'dog', '.']
-]
+	'The quick brown fox jumped over the hill to fetch a pail of water.',
+	'The quick brown fox jumped over the lazy dog.',
+	'The quick brown fox jumped over the hill to fetch a pail of water.',
+	'Jack and Jill ran up the hill to fetch a pail of water.',
+	'Jack and Jill ran up the lazy dog.'
+ ]
 ```
 # Notes #
 
