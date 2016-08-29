@@ -18,23 +18,30 @@ You can also supply a `terminators` argument to make the chain
 m = markoff.Markov(
 	[
 		['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.'],
-		['Jack', 'and', 'Jill', 'ran', 'up', 'the', 'hill', 'to', 'fetch', 'a', 'pail', 'of', 'water.']
+		['Jack', 'and', 'Jill', 'ran', 'up', 'the', 'hill', 'to', 'fetch', 'a', 'pail', 'of', 'water.'],
+		['Whenever', 'the', 'black', 'fox', 'jumped', 'the', 'squirrel', 'gazed', 'suspiciously.']
 	]
 )
-[m.generate() i for i in range(5)]
+[m.generate() i for i in range(10)]
 ```
 
 ## Output ##
 
 ```
 [
-	'The quick brown fox jumped over the hill to fetch a pail of water.',
-	'The quick brown fox jumped over the lazy dog.',
-	'The quick brown fox jumped over the hill to fetch a pail of water.',
+	'The quick brown fox jumped over the black fox jumped the lazy dog.',
+	'The quick brown fox jumped the squirrel gazed suspiciously.',
+	'Whenever the squirrel gazed suspiciously.',
+	'Jack and Jill ran up the lazy dog.',
 	'Jack and Jill ran up the hill to fetch a pail of water.',
-	'Jack and Jill ran up the lazy dog.'
+	'Jack and Jill ran up the black fox jumped the hill to fetch a pail of water.',
+	'Whenever the lazy dog.',
+	'The quick brown fox jumped over the lazy dog.',
+	'Jack and Jill ran up the hill to fetch a pail of water.',
+	'Jack and Jill ran up the squirrel gazed suspiciously.'
  ]
 ```
+
 # Notes #
 
 This module is still under development and is mostly for me to play around with and learn Markov Chains. Cheers.

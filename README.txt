@@ -24,8 +24,14 @@ Code
 
 ::
 
-    m = markoff.Markov([['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.']])
-    [m.generate() i for i in range(5)]
+    m = markoff.Markov(
+        [
+            ['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.'],
+            ['Jack', 'and', 'Jill', 'ran', 'up', 'the', 'hill', 'to', 'fetch', 'a', 'pail', 'of', 'water.'],
+            ['Whenever', 'the', 'black', 'fox', 'jumped', 'the', 'squirrel', 'gazed', 'suspiciously.']
+        ]
+    )
+    [m.generate() i for i in range(10)]
 
 Output
 ------
@@ -33,12 +39,17 @@ Output
 ::
 
     [
-        ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
-        ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
-        ['the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog', '.'],
-        ['the', 'lazy', 'dog', '.'],
-        ['the', 'lazy', 'dog', '.']
-    ]
+        'The quick brown fox jumped over the black fox jumped the lazy dog.',
+        'The quick brown fox jumped the squirrel gazed suspiciously.',
+        'Whenever the squirrel gazed suspiciously.',
+        'Jack and Jill ran up the lazy dog.',
+        'Jack and Jill ran up the hill to fetch a pail of water.',
+        'Jack and Jill ran up the black fox jumped the hill to fetch a pail of water.',
+        'Whenever the lazy dog.',
+        'The quick brown fox jumped over the lazy dog.',
+        'Jack and Jill ran up the hill to fetch a pail of water.',
+        'Jack and Jill ran up the squirrel gazed suspiciously.'
+     ]
 
 Notes
 =====

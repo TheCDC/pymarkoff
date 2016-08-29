@@ -22,9 +22,10 @@ class Head():
     def __repr__(self):
         return "[Head]"
 
-    def __cmp__(self,other):
-        if isinstance(other,str):
+    def __cmp__(self, other):
+        if isinstance(other, str):
             return -1
+
 
 class Tail():
 
@@ -37,9 +38,10 @@ class Tail():
     def __repr__(self):
         return "[Tail]"
 
-    def __cmp__(self,other):
-        if isinstance(other,str):
+    def __cmp__(self, other):
+        if isinstance(other, str):
             return 1
+
 
 class Markov:
 
@@ -78,8 +80,7 @@ class Markov:
                             s for s in seed[i:i + cur_order + 1] if len(s) > 0)
 
                         tail = seed[i + cur_order + 1]
-                        self.transitions[head].update([tail]
-                                                      )
+                        self.transitions[head].update([tail])
                     except KeyError:
                         self.transitions[head] = Counter([tail])
                     except IndexError:
@@ -104,7 +105,13 @@ class Markov:
                     temp_state = tuple(result[-(cur_order + 1):len(result)])
                     # choice = random.choice(self.transitions[temp_state])
                     choice = weighted_random(
-                        *list(zip(*list(self.transitions[temp_state].items())[::-1])))
+                        *list(
+                            zip(
+                                *list(
+                                    self.transitions[temp_state].items())[::-1]
+                            )
+                        )
+                    )
                     break
                 except KeyError as e:
                     # A KeyError happens where there aren't transitions for an
@@ -180,11 +187,17 @@ Winston
 Zarya
 Zenyatta"""
     seeds = [list(i) for i in s.split('\n')]
-    seeds = ["The quick brown fox jumped over the lazy dog.".split(' ') , "Jack and Jill ran up the hill to fetch a pail of water.".split(' ')]
-    pp.pprint(seeds)
-    m = Markov(seeds,(0,))
+    seeds = [
+        "The quick brown fox jumped over the lazy dog.",
+        "Jack and Jill ran up the hill to fetch a pail of water.",
+        "Whenever the black fox jumped the squirrel gazed suspiciously."
+    ]
+    seeds = [i.split(' ') for i in seeds]
+    pp.pprint(seeds,width=80)
+    m = Markov(seeds, (0,))
 
-    results_f = [' '.join(m.generate(max_length=30)) for i in range(5)]
+    results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
+    # pp.pprint(results_f,width=80)
     pp.pprint(results_f)
     # pp.pprint(dict(m))
 if __name__ == '__main__':
