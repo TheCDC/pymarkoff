@@ -52,8 +52,12 @@ class Markov:
     start = Head()
 
     def __init__(self, seeds=[], orders=(0,), discrete_mode=True):
-        """Seeds should be an iterable or iterables.
-        This is so that entry points can be determined automatically."""
+        """Seeds should be an iterable of iterables.
+        This is so that entry points can be determined automatically.
+        discrete_mode=True Enables analysis of chains as having start and end points.
+        discrete_mode=False treats all chains as a continuous time series, more or less.
+        When discrete_mode=False, each seed must have 2 states.
+        That is in order to establish a transition."""
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = self.empty.copy()
