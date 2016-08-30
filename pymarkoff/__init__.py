@@ -51,7 +51,7 @@ class Markov:
     empty = dict()
     start = Head()
 
-    def __init__(self, seeds=[], orders=(0,), discrete_mode = True):
+    def __init__(self, seeds=[], orders=(0,), discrete_mode=True):
         """Seeds should be an iterable or iterables.
         This is so that entry points can be determined automatically."""
         if 0 not in orders:
@@ -88,7 +88,8 @@ class Markov:
                         self.transitions[head] = Counter([tail])
                     except IndexError:
                         pass
-    def get_next(self,state):
+
+    def get_next(self, state):
         """Takes a tuple of one or more states and predicts the next one."""
         try:
             choice = weighted_random(
@@ -102,7 +103,7 @@ class Markov:
         except KeyError as e:
             raise ValueError("state {} never fed in.".format(repr(state)))
         return choice
-        
+
     def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
         """Returns a list of states chosen by simulation.
         Simulation starts from a state chosen fro mknown head states
