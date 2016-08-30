@@ -85,7 +85,17 @@ class Markov:
                         self.transitions[head] = Counter([tail])
                     except IndexError:
                         pass
-
+    def get_next(self,state):
+        choice = weighted_random(
+            *list(
+                zip(
+                    *list(
+                        self.transitions[state].items())[::-1]
+                )
+            )
+        )
+        return choice
+        
     def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
         """Returns a list of states chosen by simulation.
         Simulation starts from a state chosen fro mknown head states
@@ -104,14 +114,7 @@ class Markov:
                     # to the current order.
                     temp_state = tuple(result[-(cur_order + 1):len(result)])
                     # choice = random.choice(self.transitions[temp_state])
-                    choice = weighted_random(
-                        *list(
-                            zip(
-                                *list(
-                                    self.transitions[temp_state].items())[::-1]
-                            )
-                        )
-                    )
+                    choice = self.get_next(temp_state)
                     break
                 except KeyError as e:
                     # A KeyError happens where there aren't transitions for an
@@ -193,7 +196,7 @@ Zenyatta"""
         "Whenever the black fox jumped the squirrel gazed suspiciously."
     ]
     seeds = [i.split(' ') for i in seeds]
-    pp.pprint(seeds,width=80)
+    pp.pprint(seeds, width=80)
     m = Markov(seeds, (0,))
 
     results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
