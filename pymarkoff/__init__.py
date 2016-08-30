@@ -51,7 +51,7 @@ class Markov:
     empty = dict()
     start = Head()
 
-    def __init__(self, seeds, orders=(0,)):
+    def __init__(self, seeds=[], orders=(0,)):
         """Seeds should be an iterable or iterables.
         This is so that entry points can be determined automatically."""
         if 0 not in orders:
