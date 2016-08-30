@@ -51,7 +51,7 @@ class Markov:
     empty = dict()
     start = Head()
 
-    def __init__(self, seeds=[], orders=(0,)):
+    def __init__(self, seeds=[], orders=(0,), discrete_mode = True):
         """Seeds should be an iterable or iterables.
         This is so that entry points can be determined automatically."""
         if 0 not in orders:
@@ -59,7 +59,8 @@ class Markov:
         self.transitions = self.empty.copy()
         self.orders = orders
         self.feed(seeds)
-        self.cur_state = self.start
+        # self.cur_state = self.start
+        self.discrete = discrete_mode
 
     def feed(self, seeds, sep=' '):
         """Feed the generator with a list of seeds (iterables).
@@ -70,7 +71,9 @@ class Markov:
         """
         for seed in seeds:
             # print(seed)
-            seed = [Head()] + seed + [Tail()]
+            if self.discrete:
+                seed = [Head()] + seed + [Tail()]
+
             for cur_order in self.orders:
                 # for each head + tail
                 # Or rather count(tail|head)
@@ -86,14 +89,18 @@ class Markov:
                     except IndexError:
                         pass
     def get_next(self,state):
-        choice = weighted_random(
-            *list(
-                zip(
-                    *list(
-                        self.transitions[state].items())[::-1]
+        """Takes a tuple of one or more states and predicts the next one."""
+        try:
+            choice = weighted_random(
+                *list(
+                    zip(
+                        *list(
+                            self.transitions[(state,)].items())[::-1]
+                    )
                 )
             )
-        )
+        except KeyError as e:
+            raise ValueError("state {} never fed in.".format(repr(state)))
         return choice
         
     def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
@@ -198,10 +205,10 @@ Zenyatta"""
     seeds = [i.split(' ') for i in seeds]
     pp.pprint(seeds, width=80)
     m = Markov(seeds, (0,))
-
+    print(m.get_next(("the",)))
     results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
     # pp.pprint(results_f,width=80)
-    pp.pprint(results_f)
+    # pp.pprint(results_f)
     # pp.pprint(dict(m))
 if __name__ == '__main__':
     main()
