@@ -29,6 +29,8 @@ class Head():
 
 class Tail():
 
+    """A dummy class used to anchor the end of an input chain."""
+
     def __len__(self):
         return 0
 
@@ -74,21 +76,27 @@ class Markov:
 
         """
         for seed in seeds:
-            # print(seed)
+            # go throug each seed
+
+            # prep it if in discrete mode.
             if self.discrete:
                 seed = [Head()] + seed + [Tail()]
+            # go through all user-specified orders
+            # or 'state lengths'
 
             for cur_order in self.orders:
-                # for each head + tail
-                # Or rather count(tail|head)
                 for i in range(len(seed) - cur_order):
                     try:
+                        # assume that the given state has been previously
+                        # recorded
                         head = tuple(
                             s for s in seed[i:i + cur_order + 1] if len(s) > 0)
 
                         tail = seed[i + cur_order + 1]
                         self.transitions[head].update([tail])
                     except KeyError:
+                        # If the current state has not been seen before,
+                        # record it.
                         self.transitions[head] = Counter([tail])
                     except IndexError:
                         pass
@@ -179,6 +187,7 @@ def filter_by_user(data):
 
 
 def main():
+    # I have been playing a lot of Overwatch lately.
     s = """Ana
 Bastion
 D.Va
