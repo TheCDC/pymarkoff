@@ -63,7 +63,7 @@ class Markov:
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = self.empty.copy()
-        self.orders = orders
+        self.orders = sorted(orders)[::-1] # force orders to be descending 
         # self.cur_state = self.start
         self.discrete = discrete_mode
         self.feed(seeds)
