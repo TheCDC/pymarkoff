@@ -64,9 +64,9 @@ class Markov:
             raise ValueError("0 is a required order.")
         self.transitions = self.empty.copy()
         self.orders = orders
-        self.feed(seeds)
         # self.cur_state = self.start
         self.discrete = discrete_mode
+        self.feed(seeds)
 
     def feed(self, seeds, sep=' '):
         """Feed the generator with a list of seeds (iterables).
