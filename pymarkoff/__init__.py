@@ -108,12 +108,12 @@ class Markov:
                 *list(
                     zip(
                         *list(
-                            self.transitions[(state,)].items())[::-1]
+                            self.transitions[state].items())[::-1]
                     )
                 )
             )
         except KeyError as e:
-            raise ValueError("state {} never fed in.".format(repr(state)))
+            raise ValueError("state {} never fed in. Brain:{}".format(repr(state), dict(self).keys()))
         return choice
 
     def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
@@ -136,8 +136,8 @@ class Markov:
                     # choice = random.choice(self.transitions[temp_state])
                     choice = self.get_next(temp_state)
                     break
-                except KeyError as e:
-                    # A KeyError happens where there aren't transitions for an
+                except ValueError as e:
+                    # A ValueError happens where there aren't transitions for an
                     # arbitrary higher order state
                     # In which case, carry on and continue to the next lowest
                     # order.
@@ -218,7 +218,8 @@ Zenyatta"""
     ]
     seeds = [i.split(' ') for i in seeds]
     pp.pprint(seeds, width=80)
-    m = Markov(seeds, (0,))
+    m = Markov(seeds, (0,1))
+    print(dict(m).keys())
     print(m.get_next(("the",)))
     results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
     # pp.pprint(results_f,width=80)
