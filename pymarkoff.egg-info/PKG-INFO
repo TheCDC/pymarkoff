@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pymarkoff
-Version: 0.3.2
+Version: 0.3.3
 Summary: A simple Markov chain modeller and generator aimed for word and sentence generation.
 Home-page: https://bitbucket.org/TheCDC/pymarkoff
 Author: Christopher Chen

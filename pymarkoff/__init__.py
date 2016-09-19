@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""A module that can create a Markov model of sequences
+and also generate sequences based on that model."""
+
 
 import pprint as pp
 import re
@@ -7,6 +10,11 @@ import time
 import itertools
 import bisect
 from collections import Counter
+
+
+class InvalidStateError(Exception):
+    """A simple exception used to indicate a chain is referencing a nonexistent state."""
+    pass
 
 
 class Head():
@@ -53,23 +61,25 @@ class Markov:
     empty = dict()
     start = Head()
 
-    def __init__(self, seeds=[], orders=(0,), discrete_mode=True):
+    def __init__(self, seeds=None, orders=(0,), discrete_mode=True):
         """Seeds should be an iterable of iterables.
         This is so that entry points can be determined automatically.
         discrete_mode=True Enables analysis of chains as having start and end points.
         discrete_mode=False treats all chains as a continuous time series, more or less.
         When discrete_mode=False, each seed must have 2 states.
         That is in order to establish a transition."""
+        if seeds is None:
+            seeds = []
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = self.empty.copy()
-        self.orders = sorted(orders)[::-1] # force orders to be descending 
+        self.orders = sorted(orders)[::-1]  # force orders to be descending
         # self.cur_state = self.start
         self.discrete = discrete_mode
         self.feed(seeds)
 
-    def feed(self, seeds, sep=' '):
-        """Feed the generator with a list of seeds (iterables).
+    def feed(self, seeds):
+        """Feed the generator with a list of lists, called seeds.
         I.e. m = pymarkoff.Markov()
         m.feed([['The','quick','brown','fox','jumped','over','the','lazy','dog.']])
         m.generate() => ['The','lazy','dog.']
@@ -78,6 +88,9 @@ class Markov:
         for seed in seeds:
             # go throug each seed
 
+            # Handle string seeds
+            if isinstance(seed) == str:
+                seed = list(seed)
             # prep it if in discrete mode.
             if self.discrete:
                 seed = [Head()] + seed + [Tail()]
@@ -102,7 +115,11 @@ class Markov:
                         pass
 
     def get_next(self, state):
-        """Takes a tuple of one or more states and predicts the next one."""
+        """Takes a tuple of one or more states and predicts the next one.
+        Example:
+            If the object has been fed the string 'Bananas',
+                In: ('B',)  Out: 'a'
+        """
         try:
             choice = weighted_random(
                 *list(
@@ -112,11 +129,12 @@ class Markov:
                     )
                 )
             )
-        except KeyError as e:
-            raise ValueError("state {} never fed in. Brain:{}".format(repr(state), dict(self).keys()))
+        except KeyError:
+            raise InvalidStateError("state {} never fed in. Brain:{}".format(
+                repr(state), dict(self).keys()))
         return choice
 
-    def generate(self, *, max_length=100, terminators=(Tail(),), sep=' '):
+    def generate(self, *, max_length=100):
         """Returns a list of states chosen by simulation.
         Simulation starts from a state chosen fro mknown head states
         and ends at either a known terminating state or when the chain
@@ -136,8 +154,8 @@ class Markov:
                     # choice = random.choice(self.transitions[temp_state])
                     choice = self.get_next(temp_state)
                     break
-                except ValueError as e:
-                    # A ValueError happens where there aren't transitions for an
+                except InvalidStateError:
+                    # An InvalidStateError happens when there aren't transitions for an
                     # arbitrary higher order state
                     # In which case, carry on and continue to the next lowest
                     # order.
@@ -158,6 +176,7 @@ class Markov:
 
 
 def weighted_random(choices, weights):
+    """Randomly choose an item from choices weighted by weights."""
     cumdist = list(itertools.accumulate(weights))
     x = random.random() * cumdist[-1]
     return choices[bisect.bisect(cumdist, x)]
@@ -218,10 +237,10 @@ Zenyatta"""
     ]
     seeds = [i.split(' ') for i in seeds]
     pp.pprint(seeds, width=80)
-    m = Markov(seeds, (0,1))
+    m = Markov(seeds, (0, 1))
     print(dict(m).keys())
     print(m.get_next(("the",)))
-    results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
+    # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
     # pp.pprint(results_f,width=80)
     # pp.pprint(results_f)
     # pp.pprint(dict(m))

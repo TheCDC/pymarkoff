@@ -9,7 +9,7 @@ setup(
     name='pymarkoff',
     author='Christopher Chen',
     author_email='christopher.chen1995@gmail.com',
-    version='0.3.2',
+    version='0.3.3',
     description="""A simple Markov chain modeller and generator aimed for word and sentence generation.""",
     long_description=long_description,
     classifiers=[
