@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""A module that can create a Markov model of sequences
-and also generate sequences based on that model."""
+"""A module for creating Markov models of sequences
+and generating sequences based on that model."""
 
 
 import pprint as pp
