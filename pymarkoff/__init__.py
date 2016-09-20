@@ -13,7 +13,8 @@ from collections import Counter
 
 
 class InvalidStateError(Exception):
-    """A simple exception used to indicate a chain is referencing a nonexistent state."""
+
+    """A simple exception to indicate chain referencing a nonexistent state."""
     pass
 
 
@@ -170,28 +171,21 @@ class Markov:
         return str(self.transitions)
 
     def __iter__(self):
-        for t in self.transitions.items():
+        for item in self.transitions.items():
             # yield (t[0],sorted(t[1]))
-            yield t
+            yield item
 
 
 def weighted_random(choices, weights):
     """Randomly choose an item from choices weighted by weights."""
     cumdist = list(itertools.accumulate(weights))
-    x = random.random() * cumdist[-1]
-    return choices[bisect.bisect(cumdist, x)]
-
-
-def prepare_str(s):
-    """For massaging purposes."""
-    return [''] + s.split(" ")
-
-
-def clean_data(s):
-    return s
+    cursor = random.random() * cumdist[-1]
+    return choices[bisect.bisect(cumdist, cursor)]
 
 
 def filter_by_user(data):
+    """Return a list from data where each item was allowed by the user."""
+
     good = []
     for sentence in data:
         print(sentence)
@@ -206,6 +200,7 @@ def filter_by_user(data):
 
 
 def main():
+    """Interactive mode. Mostly used for testing."""
     # I have been playing a lot of Overwatch lately.
     s = """Ana
 Bastion
