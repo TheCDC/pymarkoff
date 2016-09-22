@@ -1,3 +1,4 @@
-dist/
+dist/*
 pymarkoff.egg-info*
 pymarkoff.egg-info/*
+build/*

@@ -1,3 +1,3 @@
 #!/bin/sh
-pyreverse -o png ../pymarkoff
+pyreverse -S -A -o png ../pymarkoff
 pylint ../pymarkoff -f html > linting-report.html

@@ -72,7 +72,7 @@ class Markov:
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = dict()
-        self.orders = sorted(orders)[::-1]  # force orders to be descending
+        self.orders = tuple(sorted(orders)[::-1])  # force orders to be descending
         # self.cur_state = self.start
         self.discrete = discrete_mode
         self.feed(seeds)
@@ -84,6 +84,8 @@ class Markov:
         m.generate() => ['The','lazy','dog.']
 
         """
+        Head()
+        Tail()
         for seed in seeds:
             # go throug each seed
 
