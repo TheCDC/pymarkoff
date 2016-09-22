@@ -18,40 +18,41 @@ class InvalidStateError(Exception):
     pass
 
 
-class Head():
+class Anchor():
 
-    """A dummy class used to anchor the beginning of an input chain."""
+    """A parent class for chain anchors."""
 
-    def __len__(self):
+    def __init__(self, s=None):
+        self.description = s
+
+    def __len__(self,):
         return 0
-
-    def __str__(self):
-        return "[Head]"
-
-    def __repr__(self):
-        return "[Head]"
 
     def __cmp__(self, other):
         if isinstance(other, str):
             return -1
 
 
-class Tail():
+class Head(Anchor):
+
+    """A dummy class used to anchor the beginning of an input chain."""
+
+    def __str__(self):
+        return self.description if self.description else "[Head]"
+
+    def __repr__(self):
+        return "Head()"
+
+
+class Tail(Anchor):
 
     """A dummy class used to anchor the end of an input chain."""
 
-    def __len__(self):
-        return 0
-
     def __str__(self):
-        return "[Tail]"
+        return self.description if self.description else "[Tail]"
 
     def __repr__(self):
-        return "[Tail]"
-
-    def __cmp__(self, other):
-        if isinstance(other, str):
-            return 1
+        return "Tail()"
 
 
 class Markov:
@@ -59,7 +60,6 @@ class Markov:
     """Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
-    empty = dict()
     start = Head()
 
     def __init__(self, seeds=None, orders=(0,), discrete_mode=True):
@@ -73,7 +73,7 @@ class Markov:
             seeds = []
         if 0 not in orders:
             raise ValueError("0 is a required order.")
-        self.transitions = self.empty.copy()
+        self.transitions = dict()
         self.orders = sorted(orders)[::-1]  # force orders to be descending
         # self.cur_state = self.start
         self.discrete = discrete_mode
@@ -90,7 +90,7 @@ class Markov:
             # go throug each seed
 
             # Handle string seeds
-            if isinstance(seed) == str:
+            if isinstance(seed, str):
                 seed = list(seed)
             # prep it if in discrete mode.
             if self.discrete:
@@ -202,7 +202,7 @@ def filter_by_user(data):
 def main():
     """Interactive mode. Mostly used for testing."""
     # I have been playing a lot of Overwatch lately.
-    s = """Ana
+    mystr = """Ana
 Bastion
 D.Va
 Genji
@@ -224,7 +224,7 @@ Widowmaker
 Winston
 Zarya
 Zenyatta"""
-    seeds = [list(i) for i in s.split('\n')]
+    seeds = [list(i) for i in mystr.split('\n')]
     seeds = [
         "The quick brown fox jumped over the lazy dog.",
         "Jack and Jill ran up the hill to fetch a pail of water.",
@@ -232,13 +232,10 @@ Zenyatta"""
     ]
     seeds = [i.split(' ') for i in seeds]
     pp.pprint(seeds, width=80)
-    m = Markov(seeds, (0, 1))
-    print(dict(m).keys())
-    print(m.get_next(("the",)))
+    brain = Markov(seeds, (0, 1))
+    print(dict(brain).keys())
+    print(brain.get_next(("the",)))
     # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
-    # pp.pprint(results_f,width=80)
-    # pp.pprint(results_f)
-    # pp.pprint(dict(m))
 if __name__ == '__main__':
     main()
 
