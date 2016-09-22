@@ -60,8 +60,6 @@ class Markov:
     """Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
-    start = Head()
-
     def __init__(self, seeds=None, orders=(0,), discrete_mode=True):
         """Seeds should be an iterable of iterables.
         This is so that entry points can be determined automatically.
