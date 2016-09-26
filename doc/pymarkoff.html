@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: package pymarkoff</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>pymarkoff</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/EE20B84020B81197/Dropbox/Projects/Python%20Programs/My%20Modules/pymarkoff/pymarkoff/__init__.py">/mnt/EE20B84020B81197/Dropbox/Projects/Python Programs/My Modules/pymarkoff/pymarkoff/__init__.py</a></font></td></tr></table>
+    <p><tt>A&nbsp;module&nbsp;for&nbsp;creating&nbsp;<a href="#Markov">Markov</a>&nbsp;models&nbsp;of&nbsp;sequences<br>
+and&nbsp;generating&nbsp;sequences&nbsp;based&nbsp;on&nbsp;that&nbsp;model.<br>
+Use&nbsp;the&nbsp;Sentences()&nbsp;or&nbsp;Words()&nbsp;depending&nbsp;on&nbsp;the&nbsp;format&nbsp;of&nbsp;your&nbsp;data.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Package Contents</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="pymarkoff.__main__.html">__main__</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#Exception">builtins.Exception</a>(<a href="builtins.html#BaseException">builtins.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pymarkoff.html#InvalidStateError">InvalidStateError</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pymarkoff.html#Anchor">Anchor</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pymarkoff.html#Head">Head</a>
+</font></dt><dt><font face="helvetica, arial"><a href="pymarkoff.html#Tail">Tail</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="pymarkoff.html#Markov">Markov</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Anchor">class <strong>Anchor</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;parent&nbsp;class&nbsp;for&nbsp;chain&nbsp;anchors.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Anchor-__cmp__"><strong>__cmp__</strong></a>(self, other)</dt></dl>
+
+<dl><dt><a name="Anchor-__init__"><strong>__init__</strong></a>(self, s=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Anchor-__len__"><strong>__len__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Head">class <strong>Head</strong></a>(<a href="pymarkoff.html#Anchor">Anchor</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;dummy&nbsp;class&nbsp;used&nbsp;internally&nbsp;to&nbsp;anchor&nbsp;the&nbsp;beginning&nbsp;of&nbsp;an&nbsp;input&nbsp;chain.<br>
+Don't&nbsp;bother&nbsp;reading&nbsp;about&nbsp;this<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pymarkoff.html#Head">Head</a></dd>
+<dd><a href="pymarkoff.html#Anchor">Anchor</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Head-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Head-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="pymarkoff.html#Anchor">Anchor</a>:<br>
+<dl><dt><a name="Head-__cmp__"><strong>__cmp__</strong></a>(self, other)</dt></dl>
+
+<dl><dt><a name="Head-__init__"><strong>__init__</strong></a>(self, s=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Head-__len__"><strong>__len__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pymarkoff.html#Anchor">Anchor</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InvalidStateError">class <strong>InvalidStateError</strong></a>(<a href="builtins.html#Exception">builtins.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;simple&nbsp;exception&nbsp;to&nbsp;indicate&nbsp;when&nbsp;<a href="#Markov">Markov</a>&nbsp;is&nbsp;trying&nbsp;to&nbsp;reference<br>
+a&nbsp;nonexistent&nbsp;state.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pymarkoff.html#InvalidStateError">InvalidStateError</a></dd>
+<dd><a href="builtins.html#Exception">builtins.Exception</a></dd>
+<dd><a href="builtins.html#BaseException">builtins.BaseException</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="builtins.html#Exception">builtins.Exception</a>:<br>
+<dl><dt><a name="InvalidStateError-__init__"><strong>__init__</strong></a>(self, /, *args, **kwargs)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><a name="InvalidStateError-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-__getattribute__"><strong>__getattribute__</strong></a>(self, name, /)</dt><dd><tt>Return&nbsp;getattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-__reduce__"><strong>__reduce__</strong></a>(...)</dt><dd><tt>helper&nbsp;for&nbsp;pickle</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="InvalidStateError-__str__"><strong>__str__</strong></a>(self, /)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="InvalidStateError-with_traceback"><strong>with_traceback</strong></a>(...)</dt><dd><tt><a href="builtins.html#Exception">Exception</a>.<a href="#InvalidStateError-with_traceback">with_traceback</a>(tb)&nbsp;--<br>
+set&nbsp;self.<strong>__traceback__</strong>&nbsp;to&nbsp;tb&nbsp;and&nbsp;return&nbsp;self.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="builtins.html#BaseException">builtins.BaseException</a>:<br>
+<dl><dt><strong>__cause__</strong></dt>
+<dd><tt>exception&nbsp;cause</tt></dd>
+</dl>
+<dl><dt><strong>__context__</strong></dt>
+<dd><tt>exception&nbsp;context</tt></dd>
+</dl>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>__suppress_context__</strong></dt>
+</dl>
+<dl><dt><strong>__traceback__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Markov">class <strong>Markov</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Get&nbsp;a&nbsp;lot&nbsp;of&nbsp;input&nbsp;and&nbsp;produce&nbsp;a&nbsp;short&nbsp;output&nbsp;multiple&nbsp;times.<br>
+Input&nbsp;should&nbsp;be&nbsp;lists&nbsp;of&nbsp;strings&nbsp;beginning&nbsp;with&nbsp;an&nbsp;emptystring.<br>
+The&nbsp;<a href="#Head">Head</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;used&nbsp;as&nbsp;the&nbsp;entry&nbsp;point&nbsp;every&nbsp;time&nbsp;<a href="#Markov-generate">generate</a>()&nbsp;is&nbsp;called.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Markov-__init__"><strong>__init__</strong></a>(self, seeds=None, orders=(0,), discrete_mode=True)</dt><dd><tt>Seeds&nbsp;should&nbsp;be&nbsp;an&nbsp;iterable&nbsp;of&nbsp;iterables.<br>
+This&nbsp;is&nbsp;so&nbsp;that&nbsp;entry&nbsp;points&nbsp;can&nbsp;be&nbsp;determined&nbsp;automatically.<br>
+discrete_mode=True&nbsp;Enables&nbsp;analysis&nbsp;of&nbsp;chains&nbsp;as&nbsp;having&nbsp;start&nbsp;and&nbsp;end&nbsp;points.<br>
+discrete_mode=False&nbsp;treats&nbsp;all&nbsp;chains&nbsp;as&nbsp;a&nbsp;continuous&nbsp;time&nbsp;series,&nbsp;more&nbsp;or&nbsp;less.<br>
+When&nbsp;discrete_mode=False,&nbsp;each&nbsp;seed&nbsp;must&nbsp;have&nbsp;2&nbsp;states.<br>
+That&nbsp;is&nbsp;in&nbsp;order&nbsp;to&nbsp;establish&nbsp;a&nbsp;transition.</tt></dd></dl>
+
+<dl><dt><a name="Markov-__iter__"><strong>__iter__</strong></a>(self) -&gt; tuple</dt><dd><tt>Yield&nbsp;items&nbsp;in&nbsp;the&nbsp;transition&nbsp;table&nbsp;like&nbsp;a&nbsp;dict.</tt></dd></dl>
+
+<dl><dt><a name="Markov-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<dl><dt><a name="Markov-feed"><strong>feed</strong></a>(self, seeds) -&gt; None</dt><dd><tt>Feed&nbsp;the&nbsp;generator&nbsp;with&nbsp;a&nbsp;list&nbsp;of&nbsp;lists,&nbsp;called&nbsp;seeds.<br>
+I.e.&nbsp;m&nbsp;=&nbsp;pymarkoff.<a href="#Markov">Markov</a>()<br>
+m.<a href="#Markov-feed">feed</a>([['The','quick','brown','fox','jumped','over','the','lazy','dog.']])<br>
+m.<a href="#Markov-generate">generate</a>()&nbsp;=&gt;&nbsp;['The','lazy','dog.']</tt></dd></dl>
+
+<dl><dt><a name="Markov-generate"><strong>generate</strong></a>(self, *, max_length=100) -&gt; list</dt><dd><tt>Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;states&nbsp;chosen&nbsp;by&nbsp;simulation.<br>
+Simulation&nbsp;starts&nbsp;from&nbsp;a&nbsp;state&nbsp;chosen&nbsp;fro&nbsp;mknown&nbsp;head&nbsp;states<br>
+and&nbsp;ends&nbsp;at&nbsp;either&nbsp;a&nbsp;known&nbsp;terminating&nbsp;state&nbsp;or&nbsp;when&nbsp;the&nbsp;chain<br>
+reaches&nbsp;max_length,&nbsp;whichever&nbsp;comes&nbsp;first.</tt></dd></dl>
+
+<dl><dt><a name="Markov-get_next"><strong>get_next</strong></a>(self, state)</dt><dd><tt>Takes&nbsp;a&nbsp;tuple&nbsp;of&nbsp;one&nbsp;or&nbsp;more&nbsp;states&nbsp;and&nbsp;predicts&nbsp;the&nbsp;next&nbsp;one.<br>
+Example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;<a href="builtins.html#object">object</a>&nbsp;has&nbsp;been&nbsp;fed&nbsp;the&nbsp;string&nbsp;'Bananas',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In:&nbsp;('B',)&nbsp;&nbsp;Out:&nbsp;'a'</tt></dd></dl>
+
+<dl><dt><a name="Markov-next_sentence"><strong>next_sentence</strong></a>(self, *args, **kwargs) -&gt; str</dt><dd><tt>Treat&nbsp;chain&nbsp;generator&nbsp;output&nbsp;as&nbsp;a&nbsp;sentence<br>
+and&nbsp;format&nbsp;addordingly.</tt></dd></dl>
+
+<dl><dt><a name="Markov-next_word"><strong>next_word</strong></a>(self, *args, **kwargs) -&gt; str</dt><dd><tt>Treat&nbsp;chain&nbsp;generator&nbsp;output&nbsp;as&nbsp;a&nbsp;word&nbsp;and&nbsp;format&nbsp;addordingly.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Tail">class <strong>Tail</strong></a>(<a href="pymarkoff.html#Anchor">Anchor</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;dummy&nbsp;class&nbsp;used&nbsp;internally&nbsp;to&nbsp;anchor&nbsp;the&nbsp;end&nbsp;of&nbsp;an&nbsp;input&nbsp;chain.<br>
+Don't&nbsp;bother&nbsp;reading&nbsp;about&nbsp;this<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pymarkoff.html#Tail">Tail</a></dd>
+<dd><a href="pymarkoff.html#Anchor">Anchor</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Tail-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="Tail-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>Return&nbsp;str(self).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="pymarkoff.html#Anchor">Anchor</a>:<br>
+<dl><dt><a name="Tail-__cmp__"><strong>__cmp__</strong></a>(self, other)</dt></dl>
+
+<dl><dt><a name="Tail-__init__"><strong>__init__</strong></a>(self, s=None)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Tail-__len__"><strong>__len__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="pymarkoff.html#Anchor">Anchor</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-filter_by_user"><strong>filter_by_user</strong></a>(data) -&gt; list</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;from&nbsp;data&nbsp;where&nbsp;each&nbsp;item&nbsp;was&nbsp;allowed&nbsp;by&nbsp;the&nbsp;user.</tt></dd></dl>
+ <dl><dt><a name="-from_sentences"><strong>from_sentences</strong></a>(source, *args, delimiter='\n', **kwargs) -&gt; pymarkoff.Markov</dt><dd><tt>A&nbsp;helper&nbsp;function&nbsp;to&nbsp;produce&nbsp;a&nbsp;chain&nbsp;generator&nbsp;from&nbsp;sentences.<br>
+Returns&nbsp;a&nbsp;<a href="#Markov">Markov</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;that&nbsp;produces&nbsp;sentences.<br>
+Input&nbsp;should&nbsp;be&nbsp;a&nbsp;string&nbsp;of&nbsp;sentences&nbsp;separated&nbsp;by&nbsp;newlines&nbsp;or&nbsp;[delimiter].<br>
+Words&nbsp;in&nbsp;sentences&nbsp;should&nbsp;be&nbsp;separated&nbsp;by&nbsp;spaces.</tt></dd></dl>
+ <dl><dt><a name="-from_words"><strong>from_words</strong></a>(source, *args, delimiter='\n', **kwargs) -&gt; pymarkoff.Markov</dt><dd><tt>A&nbsp;helper&nbsp;function&nbsp;to&nbsp;produce&nbsp;a&nbsp;chain&nbsp;generator&nbsp;from&nbsp;words.<br>
+Returns&nbsp;a&nbsp;<a href="#Markov">Markov</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;that&nbsp;produces&nbsp;words.<br>
+Input&nbsp;should&nbsp;be&nbsp;words&nbsp;separated&nbsp;by&nbsp;newlines&nbsp;or&nbsp;else&nbsp;by&nbsp;[delimiter]</tt></dd></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>() -&gt; None</dt><dd><tt>Interactive&nbsp;mode.&nbsp;Mostly&nbsp;used&nbsp;for&nbsp;testing.</tt></dd></dl>
+ <dl><dt><a name="-weighted_random"><strong>weighted_random</strong></a>(choices, weights)</dt><dd><tt>Randomly&nbsp;choose&nbsp;an&nbsp;item&nbsp;from&nbsp;choices&nbsp;weighted&nbsp;by&nbsp;weights.</tt></dd></dl>
+</td></tr></table>
+</body></html>

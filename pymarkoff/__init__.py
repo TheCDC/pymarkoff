@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """A module for creating Markov models of sequences
-and generating sequences based on that model."""
+and generating sequences based on that model.
+Use the Sentences() or Words() depending on the format of your data.
+
+"""
 
 
 import pprint as pp
@@ -14,7 +17,8 @@ from collections import Counter
 
 class InvalidStateError(Exception):
 
-    """A simple exception to indicate chain referencing a nonexistent state."""
+    """A simple exception to indicate when Markov is trying to reference
+    a nonexistent state."""
     pass
 
 
@@ -35,7 +39,8 @@ class Anchor():
 
 class Head(Anchor):
 
-    """A dummy class used to anchor the beginning of an input chain."""
+    """A dummy class used internally to anchor the beginning of an input chain.
+    Don't bother reading about this"""
 
     def __str__(self):
         return self.description if self.description else "[Head]"
@@ -46,7 +51,8 @@ class Head(Anchor):
 
 class Tail(Anchor):
 
-    """A dummy class used to anchor the end of an input chain."""
+    """A dummy class used internally to anchor the end of an input chain.
+    Don't bother reading about this"""
 
     def __str__(self):
         return self.description if self.description else "[Tail]"
@@ -60,6 +66,7 @@ class Markov:
     """Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
+
     def __init__(self, seeds=None, orders=(0,), discrete_mode=True):
         """Seeds should be an iterable of iterables.
         This is so that entry points can be determined automatically.
@@ -72,12 +79,13 @@ class Markov:
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = dict()
-        self.orders = tuple(sorted(orders)[::-1])  # force orders to be descending
+        # force orders to be descending
+        self.orders = tuple(sorted(orders)[::-1])
         # self.cur_state = self.start
         self.discrete = discrete_mode
         self.feed(seeds)
 
-    def feed(self, seeds):
+    def feed(self, seeds) -> None:
         """Feed the generator with a list of lists, called seeds.
         I.e. m = pymarkoff.Markov()
         m.feed([['The','quick','brown','fox','jumped','over','the','lazy','dog.']])
@@ -135,7 +143,7 @@ class Markov:
                 repr(state), dict(self).keys()))
         return choice
 
-    def generate(self, *, max_length=100):
+    def generate(self, *, max_length=100) -> list:
         """Returns a list of states chosen by simulation.
         Simulation starts from a state chosen fro mknown head states
         and ends at either a known terminating state or when the chain
@@ -167,10 +175,20 @@ class Markov:
             i += 1
         return result[:-1]  # slice off the tail
 
-    def __str__(self):
+    def next_word(self, *args, **kwargs) -> str:
+        """Treat chain generator output as a word and format addordingly."""
+        return ''.join(self.generate(*args, **kwargs))
+
+    def next_sentence(self, *args, **kwargs) -> str:
+        """Treat chain generator output as a sentence
+        and format addordingly."""
+        return ' '.join(self.generate(*args, **kwargs))
+
+    def __str__(self) -> str:
         return str(self.transitions)
 
-    def __iter__(self):
+    def __iter__(self) -> tuple:
+        """Yield items in the transition table like a dict."""
         for item in self.transitions.items():
             # yield (t[0],sorted(t[1]))
             yield item
@@ -183,7 +201,7 @@ def weighted_random(choices, weights):
     return choices[bisect.bisect(cumdist, cursor)]
 
 
-def filter_by_user(data):
+def filter_by_user(data) -> list:
     """Return a list from data where each item was allowed by the user."""
 
     good = []
@@ -199,7 +217,25 @@ def filter_by_user(data):
     return good
 
 
-def main():
+def from_sentences(source, *args, delimiter='\n', **kwargs) -> Markov:
+    """A helper function to produce a chain generator from sentences.
+    Returns a Markov object that produces sentences.
+    Input should be a string of sentences separated by newlines or [delimiter].
+    Words in sentences should be separated by spaces.
+    """
+    chains = [i.split(" ") for i in source.split(delimiter)]
+    return Markov(chains, *args, **kwargs)
+
+
+def from_words(source, *args, delimiter='\n', **kwargs) -> Markov:
+    """A helper function to produce a chain generator from words.
+    Returns a Markov object that produces words.
+    Input should be words separated by newlines or else by [delimiter]"""
+    chains = [list(i) for i in source.split(delimiter)]
+    return Markov(chains, *args, **kwargs)
+
+
+def main() -> None:
     """Interactive mode. Mostly used for testing."""
     # I have been playing a lot of Overwatch lately.
     mystr = """Ana
@@ -224,17 +260,20 @@ Widowmaker
 Winston
 Zarya
 Zenyatta"""
-    seeds = [list(i) for i in mystr.split('\n')]
-    seeds = [
-        "The quick brown fox jumped over the lazy dog.",
-        "Jack and Jill ran up the hill to fetch a pail of water.",
-        "Whenever the black fox jumped the squirrel gazed suspiciously."
-    ]
-    seeds = [i.split(' ') for i in seeds]
-    pp.pprint(seeds, width=80)
-    brain = Markov(seeds, (0, 1))
-    print(dict(brain).keys())
-    print(brain.get_next(("the",)))
+    seeds = """The quick brown fox jumped over the lazy dog.
+Jack and Jill ran up the hill to fetch a pail of water.
+Whenever the black fox jumped the squirrel gazed suspiciously."""
+
+    brain = from_words(mystr)
+    # seeds = [i.split(' ') for i in seeds]
+    # print(dict(brain).keys())
+    # print(brain.get_next(("the",)))
+    print(brain.next_word())
+    print(brain.next_word())
+    print(brain.next_word())
+    bbrain = from_sentences(seeds)
+    print(bbrain.next_sentence())
+    # print(brain.next_sentence())
     # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
 if __name__ == '__main__':
     main()
