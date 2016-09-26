@@ -7,8 +7,9 @@ Use the included `from_sentences()` and `from_words()` if your data already beha
 Your input sequences of words or sentences should be delimited by newlines.
 Use `next_word()` and `next_sentence()` to generate your desired forat of output.
 
-In the case that you want to generate sequences from non-text data, read the following paragraph.
-Instantiate with `m = markoff.Markov(seeds)` where `seeds` is an iterable of sub-iterables. Each sub-iterable being a chain in the set of chains you want to model.
+# Advanced Use #
+
+Instantiate with `m = markoff.Markov(seeds)` where `seeds` is an iterable of sub-iterables. That could be a list of lists of words or letters if you want to emulate the functionality of `from_sentences()` and `from_words()`. Each sub-iterable being a chain in the set of chains you want to model.
 
 You can supply it with just one chain or many.
 
