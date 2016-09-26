@@ -5,7 +5,7 @@ The name is a play on words similar to Markup/Markdown.
 
 Use the included from_sentences() and from_words() if your data already behaves nicely.
 Your input sequences of words or sentences should be delimited by newlines.
-Use next_word() and next_sentence() to generate your output.
+Use `next_word()` and `next_sentence()` to generate your output.
 
 In the case that you want ot generate sequences from non-text data, read the following paragraph.
 Instantiate with `m = markoff.Markov(seeds)` where `seeds` is an iterable of sub-iterables. Each sub-iterable being a chain in the set of chains you want to model.
