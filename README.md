@@ -4,6 +4,7 @@ The name is a play on words similar to Markup/Markdown.
 # Basic Use #
 
 Use the included `from_sentences()` and `from_words()` if your data already behaves nicely.
+These methods return a `Markov` object which is the workhorse of this whole thing.
 Your input sequences of words or sentences should be delimited by newlines.
 Use `next_word()` and `next_sentence()` to generate your desired forat of output.
 
@@ -88,6 +89,8 @@ print([brain.next_word() for i in range(10)])
 ['Zen', 'D.Vaperein', 'Za', 'To', 'Merya', 'Metrdo', 'So', 'Junjör', 'Ph', 'Mera']
 ```
 
+# More advanced use #
+The `Markov.feed()`
 
 # Notes #
 
