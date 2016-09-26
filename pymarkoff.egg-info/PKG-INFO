@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pymarkoff
-Version: 0.3.4
+Version: 0.4.0
 Summary: A simple Markov chain modeller and generator aimed for word and sentence generation.
 Home-page: https://bitbucket.org/TheCDC/pymarkoff
 Author: Christopher Chen
@@ -14,7 +14,7 @@ Description: Originally a proof of concept, I've used this in enough projects th
         Basic Use
         =========
         
-        Use the included from\_sentences() and from\_words() if your data
+        Use the included ``from_sentences()`` and ``from_words()`` if your data
         already behaves nicely. Your input sequences of words or sentences
         should be delimited by newlines. Use ``next_word()`` and
         ``next_sentence()`` to generate your output.
