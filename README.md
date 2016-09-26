@@ -1,5 +1,5 @@
 Originally a proof of concept, I've used this in enough projects that I've decided to publish it tomake it easier to import.
-The name is a play on words similar to Markup/Markdown.
+The name is a play on words similar to Markup/Markdown. Hey, I'm funny sometimes,
 
 # Basic Use #
 
@@ -90,7 +90,7 @@ print([brain.next_word() for i in range(10)])
 ```
 
 # More advanced use #
-The `Markov.feed()`
+The `Markov.feed()` method can be used to add more data into the model of a `Markov` object. This lets you add sentences or words one at a time, if you want.
 
 # Notes #
 
