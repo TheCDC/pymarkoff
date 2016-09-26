@@ -10,9 +10,11 @@ You can supply it with just one chain or many.
 Then use `m.generate(max_length=100)` to produce a single chain limited to `max_length` automatically terminating at any character of `.!?`.
 You can also supply a `terminators` argument to make the chain
 
-# Example #
+# Examples #
 
 ## Generating Sentences ##
+
+### Input ###
 
 ```
 m = pymarkoff.from_sentences(
@@ -24,7 +26,7 @@ Whenever the black fox jumped the squirrel gazed suspiciously."""
 print([m.next_sentence() i for i in range(10)])
 ```
 
-## Output ##
+### Output ###
 
 
 ```
@@ -43,6 +45,8 @@ print([m.next_sentence() i for i in range(10)])
 ```
 
 ## Generating Words ##
+
+### Input ###
 
 ```
     seeds = """Ana
@@ -73,7 +77,7 @@ print([brain.next_word() for i in range(10)])
 
 ```
 
-## Output ##
+### Output ###
 
 ```
 ['Zen', 'D.Vaperein', 'Za', 'To', 'Merya', 'Metrdo', 'So', 'Junjör', 'Ph', 'Mera']
