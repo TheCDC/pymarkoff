@@ -12,7 +12,7 @@ You can also supply a `terminators` argument to make the chain
 
 # Example #
 
-## Code ##
+## Generating Sentences ##
 
 ```
 m = pymarkoff.from_sentences(
@@ -21,7 +21,7 @@ Jack and Jill ran up the hill to fetch a pail of water.
 Whenever the black fox jumped the squirrel gazed suspiciously."""
 )
 
-[m.next_sentence() i for i in range(10)]
+print([m.next_sentence() i for i in range(10)])
 ```
 
 ## Output ##
@@ -41,6 +41,44 @@ Whenever the black fox jumped the squirrel gazed suspiciously."""
 	'Jack and Jill ran up the squirrel gazed suspiciously.'
  ]
 ```
+
+## Generating Words ##
+
+```
+    seeds = """Ana
+Bastion
+D.Va
+Genji
+Hanzo
+Junkrat
+Lúcio
+McCree
+Mei
+Mercy
+Pharah
+Reaper
+Reinhardt
+Roadhog
+Soldier: 76
+Symmetra
+Torbjörn
+Tracer
+Widowmaker
+Winston
+Zarya
+Zenyatta"""
+
+brain = pymarkoff.from_words(mystr)
+print([brain.next_word() for i in range(10)])
+
+```
+
+## Output ##
+
+```
+['Zen', 'D.Vaperein', 'Za', 'To', 'Merya', 'Metrdo', 'So', 'Junjör', 'Ph', 'Mera']
+```
+
 
 # Notes #
 

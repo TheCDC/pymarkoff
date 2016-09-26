@@ -268,10 +268,9 @@ Whenever the black fox jumped the squirrel gazed suspiciously."""
     # seeds = [i.split(' ') for i in seeds]
     # print(dict(brain).keys())
     # print(brain.get_next(("the",)))
-    print(brain.next_word())
-    print(brain.next_word())
-    print(brain.next_word())
+    print([brain.next_word() for i in range(10)])
     bbrain = from_sentences(seeds)
+
     print(bbrain.next_sentence())
     # print(brain.next_sentence())
     # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
