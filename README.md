@@ -49,7 +49,7 @@ print([m.next_sentence() i for i in range(10)])
 ### Input ###
 
 ```
-    seeds = """Ana
+seeds = """Ana
 Bastion
 D.Va
 Genji
