@@ -15,5 +15,5 @@ output = pypandoc.convert("README.md","rst", outputfile="README.txt")
 print(output)
 # with open('README.txt', 'w') as f:
 #     f.write(output)
-os.system("python setup.py register")
+os.system("python3 setup.py register")
 # print(output)

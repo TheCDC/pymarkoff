@@ -3,7 +3,7 @@ The name is a play on words similar to Markup/Markdown.
 
 # Basic Use #
 
-Use the included from_sentences() and from_words() if your data already behaves nicely.
+Use the included `from_sentences()` and `from_words()` if your data already behaves nicely.
 Your input sequences of words or sentences should be delimited by newlines.
 Use `next_word()` and `next_sentence()` to generate your output.
 

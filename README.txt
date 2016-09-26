@@ -5,9 +5,15 @@ play on words similar to Markup/Markdown.
 Basic Use
 =========
 
-Instantiate with ``m = markoff.Markov(seeds)`` where ``seeds`` is an
-iterable of sub-iterables. Each sub-iterable being a chain in the set of
-chains you want to model.
+Use the included from\_sentences() and from\_words() if your data
+already behaves nicely. Your input sequences of words or sentences
+should be delimited by newlines. Use ``next_word()`` and
+``next_sentence()`` to generate your output.
+
+In the case that you want ot generate sequences from non-text data, read
+the following paragraph. Instantiate with ``m = markoff.Markov(seeds)``
+where ``seeds`` is an iterable of sub-iterables. Each sub-iterable being
+a chain in the set of chains you want to model.
 
 You can supply it with just one chain or many.
 
@@ -16,25 +22,27 @@ limited to ``max_length`` automatically terminating at any character of
 ``.!?``. You can also supply a ``terminators`` argument to make the
 chain
 
-Example
-=======
+Examples
+========
 
-Code
-----
+Generating Sentences
+--------------------
+
+Input
+~~~~~
 
 ::
 
-    m = markoff.Markov(
-        [
-            ['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.'],
-            ['Jack', 'and', 'Jill', 'ran', 'up', 'the', 'hill', 'to', 'fetch', 'a', 'pail', 'of', 'water.'],
-            ['Whenever', 'the', 'black', 'fox', 'jumped', 'the', 'squirrel', 'gazed', 'suspiciously.']
-        ]
+    m = pymarkoff.from_sentences(
+    """The quick brown fox jumped over the lazy dog.
+    Jack and Jill ran up the hill to fetch a pail of water.
+    Whenever the black fox jumped the squirrel gazed suspiciously."""
     )
-    [m.generate() i for i in range(10)]
+
+    print([m.next_sentence() i for i in range(10)])
 
 Output
-------
+~~~~~~
 
 ::
 
@@ -50,6 +58,47 @@ Output
         'Jack and Jill ran up the hill to fetch a pail of water.',
         'Jack and Jill ran up the squirrel gazed suspiciously.'
      ]
+
+Generating Words
+----------------
+
+Input
+~~~~~
+
+::
+
+    seeds = """Ana
+    Bastion
+    D.Va
+    Genji
+    Hanzo
+    Junkrat
+    Lúcio
+    McCree
+    Mei
+    Mercy
+    Pharah
+    Reaper
+    Reinhardt
+    Roadhog
+    Soldier: 76
+    Symmetra
+    Torbjörn
+    Tracer
+    Widowmaker
+    Winston
+    Zarya
+    Zenyatta"""
+
+    brain = pymarkoff.from_words(mystr)
+    print([brain.next_word() for i in range(10)])
+
+Output
+~~~~~~
+
+::
+
+    ['Zen', 'D.Vaperein', 'Za', 'To', 'Merya', 'Metrdo', 'So', 'Junjör', 'Ph', 'Mera']
 
 Notes
 =====
