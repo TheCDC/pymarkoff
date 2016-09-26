@@ -15,14 +15,13 @@ You can also supply a `terminators` argument to make the chain
 ## Code ##
 
 ```
-m = markoff.Markov(
-	[
-		['The', 'quick', 'brown', 'fox', 'jumped', 'over', 'the', 'lazy', 'dog.'],
-		['Jack', 'and', 'Jill', 'ran', 'up', 'the', 'hill', 'to', 'fetch', 'a', 'pail', 'of', 'water.'],
-		['Whenever', 'the', 'black', 'fox', 'jumped', 'the', 'squirrel', 'gazed', 'suspiciously.']
-	]
+m = pymarkoff.from_sentences(
+"""The quick brown fox jumped over the lazy dog.
+Jack and Jill ran up the hill to fetch a pail of water.
+Whenever the black fox jumped the squirrel gazed suspiciously."""
 )
-[m.generate() i for i in range(10)]
+
+[m.next_sentence() i for i in range(10)]
 ```
 
 ## Output ##
