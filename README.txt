@@ -18,9 +18,8 @@ a chain in the set of chains you want to model.
 You can supply it with just one chain or many.
 
 Then use ``m.generate(max_length=100)`` to produce a single chain
-limited to ``max_length`` automatically terminating at any character of
-``.!?``. You can also supply a ``terminators`` argument to make the
-chain
+limited to ``max_length`` automatically terminating at known ending
+state.
 
 Examples
 ========

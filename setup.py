@@ -1,7 +1,7 @@
 from setuptools import setup
 
 import os
-long_description = 'Add a fallback short description here'
+long_description = ''
 if os.path.exists('README.txt'):
     long_description = open('README.txt').read()
 
@@ -9,7 +9,7 @@ setup(
     name='pymarkoff',
     author='Christopher Chen',
     author_email='christopher.chen1995@gmail.com',
-    version='0.4.0',
+    version='0.4.1',
     description="""A simple Markov chain modeller and generator aimed for word and sentence generation.""",
     long_description=long_description,
     classifiers=[
