@@ -143,7 +143,7 @@ class Markov:
 
     def generate(self, *, max_length=100) -> list:
         """Returns a list of states chosen by simulation.
-        Simulation starts from a state chosen fro mknown head states
+        Simulation starts from a state chosen from known head states
         and ends at either a known terminating state or when the chain
         reaches max_length, whichever comes first."""
         result = []
@@ -179,7 +179,7 @@ class Markov:
 
     def next_sentence(self, *args, **kwargs) -> str:
         """Treat chain generator output as a sentence
-        and format addordingly."""
+        and format accordingly."""
         return ' '.join(self.generate(*args, **kwargs))
 
     def __str__(self) -> str:
