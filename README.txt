@@ -1,25 +1,30 @@
 Originally a proof of concept, I've used this in enough projects that
 I've decided to publish it tomake it easier to import. The name is a
-play on words similar to Markup/Markdown.
+play on words similar to Markup/Markdown. Hey, I'm funny sometimes,
 
 Basic Use
 =========
 
 Use the included ``from_sentences()`` and ``from_words()`` if your data
-already behaves nicely. Your input sequences of words or sentences
-should be delimited by newlines. Use ``next_word()`` and
-``next_sentence()`` to generate your output.
+already behaves nicely. These methods return a ``Markov`` object which
+is the workhorse of this whole thing. Your input sequences of words or
+sentences should be delimited by newlines. Use ``next_word()`` and
+``next_sentence()`` to generate your desired forat of output.
 
-In the case that you want ot generate sequences from non-text data, read
-the following paragraph. Instantiate with ``m = markoff.Markov(seeds)``
-where ``seeds`` is an iterable of sub-iterables. Each sub-iterable being
-a chain in the set of chains you want to model.
+Advanced Use
+============
+
+Instantiate with ``m = markoff.Markov(seeds)`` where ``seeds`` is an
+iterable of sub-iterables. That could be a list of lists of words or
+letters if you want to emulate the functionality of ``from_sentences()``
+and ``from_words()``. Each sub-iterable being a chain in the set of
+chains you want to model.
 
 You can supply it with just one chain or many.
 
 Then use ``m.generate(max_length=100)`` to produce a single chain
 limited to ``max_length`` automatically terminating at known ending
-state.
+state (usually a word ending with punctuation).
 
 Examples
 ========
@@ -98,6 +103,13 @@ Output
 ::
 
     ['Zen', 'D.Vaperein', 'Za', 'To', 'Merya', 'Metrdo', 'So', 'Junjör', 'Ph', 'Mera']
+
+More advanced use
+=================
+
+The ``Markov.feed()`` method can be used to add more data into the model
+of a ``Markov`` object. This lets you add sentences or words one at a
+time, if you want.
 
 Notes
 =====

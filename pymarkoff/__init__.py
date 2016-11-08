@@ -92,8 +92,6 @@ class Markov:
         m.generate() => ['The','lazy','dog.']
 
         """
-        Head()
-        Tail()
         for seed in seeds:
             # go throug each seed
 

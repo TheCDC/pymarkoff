@@ -17,7 +17,7 @@ You can supply it with just one chain or many.
 Then use `m.generate(max_length=100)` to produce a single chain limited to `max_length` automatically terminating at known ending state (usually a word ending with punctuation).
 
 # Examples #
-
+Don't forget to begin with `import pymarkoff`
 ## Generating Sentences ##
 
 ### Input ###

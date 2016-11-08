@@ -9,8 +9,8 @@ setup(
     name='pymarkoff',
     author='Christopher Chen',
     author_email='christopher.chen1995@gmail.com',
-    version='0.4.1',
-    description="""A simple Markov chain modeller and generator aimed for word and sentence generation.""",
+    version='0.4.3',
+    description="""A simple Markov chain modeller and generator for word and sentence generation.""",
     long_description=long_description,
     classifiers=[
         "Programming Language :: Python",
