@@ -29,7 +29,7 @@ Jack and Jill ran up the hill to fetch a pail of water.
 Whenever the black fox jumped the squirrel gazed suspiciously."""
 )
 
-print([m.next_sentence() i for i in range(10)])
+print([m.next_sentence() for i in range(10)])
 ```
 
 ### Output ###
