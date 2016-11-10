@@ -1,2 +1,2 @@
 #!/bin/bash
-pydoc -w ../pymarkoff
+pydoc3 -w ../pymarkoff/__init__.py 
