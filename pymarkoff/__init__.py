@@ -12,6 +12,7 @@ import random
 import time
 import itertools
 import bisect
+import pydot
 from collections import Counter
 
 
@@ -122,10 +123,12 @@ class Markov:
                         pass
 
     def get_next(self, state):
-        """Takes a tuple of one or more states and predicts the next one.
+        """Internal helper function.
+        Takes a tuple of one or more states and predicts the next one.
         Example:
             If the object has been fed the string 'Bananas',
-                In: ('B',)  Out: 'a'
+                In: ('B',)
+                Out: 'a'
         """
         try:
             choice = weighted_random(
@@ -174,7 +177,7 @@ class Markov:
         return result[:-1]  # slice off the tail
 
     def next_word(self, *args, **kwargs) -> str:
-        """Treat chain generator output as a word and format addordingly."""
+        """Treat chain generator output as a word and format accordingly."""
         return ''.join(self.generate(*args, **kwargs))
 
     def next_sentence(self, *args, **kwargs) -> str:
@@ -191,6 +194,14 @@ class Markov:
             # yield (t[0],sorted(t[1]))
             yield item
 
+    def to_graph(self) -> pydot.Dot:
+        """Return a pydot.Dot graph object representing the internal transition table."""
+        g = pydot.Dot()
+        for k,v in dict(self).items():
+            for target in v:
+                g.add_edge(pydot.Edge(str(k),str((target,))))
+        return g
+
 
 def weighted_random(choices, weights):
     """Randomly choose an item from choices weighted by weights."""
@@ -200,7 +211,7 @@ def weighted_random(choices, weights):
 
 
 def filter_by_user(data) -> list:
-    """Return a list from data where each item was allowed by the user."""
+    """Return a list from data where each item was interactively allowed by the user."""
 
     good = []
     for sentence in data:
@@ -263,12 +274,13 @@ Jack and Jill ran up the hill to fetch a pail of water.
 Whenever the black fox jumped the squirrel gazed suspiciously."""
 
     brain = from_words(mystr)
+    brain.to_graph().write_png("img/OW Names.png")
     # seeds = [i.split(' ') for i in seeds]
     # print(dict(brain).keys())
     # print(brain.get_next(("the",)))
     print([brain.next_word() for i in range(10)])
     bbrain = from_sentences(seeds)
-
+    bbrain.to_graph().write_png("img/pangrams.png")
     print(bbrain.next_sentence())
     # print(brain.next_sentence())
     # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]

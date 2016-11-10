@@ -4,3 +4,4 @@ pymarkoff.egg-info/*
 pymarkoff.egg-info
 build/*
 *__pycache__*
+img/*.png
