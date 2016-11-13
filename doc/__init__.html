@@ -11,7 +11,7 @@
 ><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/EE20B84020B81197/Dropbox/Projects/Python%20Programs/My%20Modules/pymarkoff/pymarkoff/__init__.py">/mnt/EE20B84020B81197/Dropbox/Projects/Python Programs/My Modules/pymarkoff/pymarkoff/__init__.py</a></font></td></tr></table>
     <p><tt>A&nbsp;module&nbsp;for&nbsp;creating&nbsp;<a href="#Markov">Markov</a>&nbsp;models&nbsp;of&nbsp;sequences<br>
 and&nbsp;generating&nbsp;sequences&nbsp;based&nbsp;on&nbsp;that&nbsp;model.<br>
-Use&nbsp;the&nbsp;Sentences()&nbsp;or&nbsp;Words()&nbsp;depending&nbsp;on&nbsp;the&nbsp;format&nbsp;of&nbsp;your&nbsp;data.</tt></p>
+Use&nbsp;the&nbsp;<a href="#-from_sentences">from_sentences</a>()&nbsp;or&nbsp;<a href="#-from_words">from_words</a>()&nbsp;depending&nbsp;on&nbsp;the&nbsp;format&nbsp;of&nbsp;your&nbsp;data.</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -184,7 +184,8 @@ Data descriptors inherited from <a href="builtins.html#BaseException">builtins.B
 <font color="#000000" face="helvetica, arial"><a name="Markov">class <strong>Markov</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>Get&nbsp;a&nbsp;lot&nbsp;of&nbsp;input&nbsp;and&nbsp;produce&nbsp;a&nbsp;short&nbsp;output&nbsp;multiple&nbsp;times.<br>
+<td colspan=2><tt>A&nbsp;<a href="#Markov">Markov</a>&nbsp;Chain&nbsp;modeller&nbsp;and&nbsp;sequence&nbsp;generator&nbsp;using&nbsp;the&nbsp;model.<br>
+Get&nbsp;a&nbsp;lot&nbsp;of&nbsp;input&nbsp;and&nbsp;produce&nbsp;a&nbsp;short&nbsp;output&nbsp;multiple&nbsp;times.<br>
 Input&nbsp;should&nbsp;be&nbsp;lists&nbsp;of&nbsp;strings&nbsp;beginning&nbsp;with&nbsp;an&nbsp;emptystring.<br>
 The&nbsp;<a href="#Head">Head</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;is&nbsp;used&nbsp;as&nbsp;the&nbsp;entry&nbsp;point&nbsp;every&nbsp;time&nbsp;<a href="#Markov-generate">generate</a>()&nbsp;is&nbsp;called.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
@@ -210,7 +211,7 @@ Simulation&nbsp;starts&nbsp;from&nbsp;a&nbsp;state&nbsp;chosen&nbsp;from&nbsp;kn
 and&nbsp;ends&nbsp;at&nbsp;either&nbsp;a&nbsp;known&nbsp;terminating&nbsp;state&nbsp;or&nbsp;when&nbsp;the&nbsp;chain<br>
 reaches&nbsp;max_length,&nbsp;whichever&nbsp;comes&nbsp;first.</tt></dd></dl>
 
-<dl><dt><a name="Markov-get_next"><strong>get_next</strong></a>(self, state)</dt><dd><tt>Internal&nbsp;helper&nbsp;function.<br>
+<dl><dt><a name="Markov-get_next"><strong>get_next</strong></a>(self, state)</dt><dd><tt>Exposed&nbsp;Internal&nbsp;helper&nbsp;function.<br>
 Takes&nbsp;a&nbsp;tuple&nbsp;of&nbsp;one&nbsp;or&nbsp;more&nbsp;states&nbsp;and&nbsp;predicts&nbsp;the&nbsp;next&nbsp;one.<br>
 Example:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;<a href="builtins.html#object">object</a>&nbsp;has&nbsp;been&nbsp;fed&nbsp;the&nbsp;string&nbsp;'Bananas',<br>
@@ -218,9 +219,11 @@ Example:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Out:&nbsp;'a'</tt></dd></dl>
 
 <dl><dt><a name="Markov-next_sentence"><strong>next_sentence</strong></a>(self, *args, **kwargs) -&gt; str</dt><dd><tt>Treat&nbsp;chain&nbsp;generator&nbsp;output&nbsp;as&nbsp;a&nbsp;sentence<br>
-and&nbsp;format&nbsp;accordingly.</tt></dd></dl>
+and&nbsp;format&nbsp;accordingly.<br>
+Passes&nbsp;arguments&nbsp;to&nbsp;<a href="#Markov-generate">generate</a>()</tt></dd></dl>
 
-<dl><dt><a name="Markov-next_word"><strong>next_word</strong></a>(self, *args, **kwargs) -&gt; str</dt><dd><tt>Treat&nbsp;chain&nbsp;generator&nbsp;output&nbsp;as&nbsp;a&nbsp;word&nbsp;and&nbsp;format&nbsp;accordingly.</tt></dd></dl>
+<dl><dt><a name="Markov-next_word"><strong>next_word</strong></a>(self, *args, **kwargs) -&gt; str</dt><dd><tt>Treat&nbsp;chain&nbsp;generator&nbsp;output&nbsp;as&nbsp;a&nbsp;word&nbsp;and&nbsp;format&nbsp;accordingly.<br>
+Passes&nbsp;arguments&nbsp;to&nbsp;<a href="#Markov-generate">generate</a>()</tt></dd></dl>
 
 <dl><dt><a name="Markov-to_graph"><strong>to_graph</strong></a>(self) -&gt; pydot.Dot</dt><dd><tt>Return&nbsp;a&nbsp;pydot.Dot&nbsp;graph&nbsp;<a href="builtins.html#object">object</a>&nbsp;representing&nbsp;the&nbsp;internal&nbsp;transition&nbsp;table.</tt></dd></dl>
 
@@ -284,7 +287,7 @@ Words&nbsp;in&nbsp;sentences&nbsp;should&nbsp;be&nbsp;separated&nbsp;by&nbsp;spa
  <dl><dt><a name="-from_words"><strong>from_words</strong></a>(source, *args, delimiter='\n', **kwargs) -&gt; __init__.Markov</dt><dd><tt>A&nbsp;helper&nbsp;function&nbsp;to&nbsp;produce&nbsp;a&nbsp;chain&nbsp;generator&nbsp;from&nbsp;words.<br>
 Returns&nbsp;a&nbsp;<a href="#Markov">Markov</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;that&nbsp;produces&nbsp;words.<br>
 Input&nbsp;should&nbsp;be&nbsp;words&nbsp;separated&nbsp;by&nbsp;newlines&nbsp;or&nbsp;else&nbsp;by&nbsp;[delimiter]</tt></dd></dl>
- <dl><dt><a name="-main"><strong>main</strong></a>() -&gt; None</dt><dd><tt>Interactive&nbsp;mode.&nbsp;Mostly&nbsp;used&nbsp;for&nbsp;testing.</tt></dd></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>() -&gt; None</dt><dd><tt>An&nbsp;Interactive&nbsp;mode.&nbsp;Mostly&nbsp;used&nbsp;for&nbsp;testing.</tt></dd></dl>
  <dl><dt><a name="-weighted_random"><strong>weighted_random</strong></a>(choices, weights)</dt><dd><tt>Randomly&nbsp;choose&nbsp;an&nbsp;item&nbsp;from&nbsp;choices&nbsp;weighted&nbsp;by&nbsp;weights.</tt></dd></dl>
 </td></tr></table>
 </body></html>

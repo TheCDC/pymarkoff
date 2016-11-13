@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A module for creating Markov models of sequences
 and generating sequences based on that model.
-Use the Sentences() or Words() depending on the format of your data.
+Use the from_sentences() or from_words() depending on the format of your data.
 
 """
 
@@ -14,7 +14,7 @@ import itertools
 import bisect
 import pydot
 from collections import Counter
-
+import pdb
 
 class InvalidStateError(Exception):
 
@@ -64,7 +64,8 @@ class Tail(Anchor):
 
 class Markov:
 
-    """Get a lot of input and produce a short output multiple times.
+    """A Markov Chain modeller and sequence generator using the model.
+    Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
 
@@ -123,7 +124,7 @@ class Markov:
                         pass
 
     def get_next(self, state):
-        """Internal helper function.
+        """Exposed Internal helper function.
         Takes a tuple of one or more states and predicts the next one.
         Example:
             If the object has been fed the string 'Bananas',
@@ -155,7 +156,7 @@ class Markov:
         i = 0
         while i <= max_length and not isinstance(state, Tail):
             # check for transitions in the highest allowed order first
-            # then check lower orders
+            # then check lower orders (which are more likely to have a hit).
             for cur_order in self.orders[::-1]:
                 try:
                     # reach back for a sequence of states of length less equal
@@ -177,12 +178,14 @@ class Markov:
         return result[:-1]  # slice off the tail
 
     def next_word(self, *args, **kwargs) -> str:
-        """Treat chain generator output as a word and format accordingly."""
+        """Treat chain generator output as a word and format accordingly.
+        Passes arguments to generate()"""
         return ''.join(self.generate(*args, **kwargs))
 
     def next_sentence(self, *args, **kwargs) -> str:
         """Treat chain generator output as a sentence
-        and format accordingly."""
+        and format accordingly.
+        Passes arguments to generate()"""
         return ' '.join(self.generate(*args, **kwargs))
 
     def __str__(self) -> str:
@@ -196,10 +199,12 @@ class Markov:
 
     def to_graph(self) -> pydot.Dot:
         """Return a pydot.Dot graph object representing the internal transition table."""
+        # pdb.set_trace()
         g = pydot.Dot()
-        for k,v in dict(self).items():
+        for k, v in dict(self).items():
             for target in v:
-                g.add_edge(pydot.Edge(str(k),str((target,))))
+                weight = v[target]/sum(v.values())
+                g.add_edge(pydot.Edge(str(k), str((target,)), label="{:.2f}".format(weight)))
         return g
 
 
@@ -239,13 +244,14 @@ def from_sentences(source, *args, delimiter='\n', **kwargs) -> Markov:
 def from_words(source, *args, delimiter='\n', **kwargs) -> Markov:
     """A helper function to produce a chain generator from words.
     Returns a Markov object that produces words.
-    Input should be words separated by newlines or else by [delimiter]"""
+    Input should be words separated by newlines or else by [delimiter]
+    """
     chains = [list(i) for i in source.split(delimiter)]
     return Markov(chains, *args, **kwargs)
 
 
 def main() -> None:
-    """Interactive mode. Mostly used for testing."""
+    """An Interactive mode. Mostly used for testing."""
     # I have been playing a lot of Overwatch lately.
     mystr = """Ana
 Bastion
@@ -262,6 +268,7 @@ Reaper
 Reinhardt
 Roadhog
 Soldier: 76
+Sombra
 Symmetra
 Torbjörn
 Tracer
@@ -271,7 +278,9 @@ Zarya
 Zenyatta"""
     seeds = """The quick brown fox jumped over the lazy dog.
 Jack and Jill ran up the hill to fetch a pail of water.
-Whenever the black fox jumped the squirrel gazed suspiciously."""
+Whenever the black fox jumped the squirrel gazed suspiciously.
+Five quacking zephyrs jolt my wax bed.
+Do wafting zephyrs quickly vex Jumbo?"""
 
     brain = from_words(mystr)
     brain.to_graph().write_png("img/OW Names.png")

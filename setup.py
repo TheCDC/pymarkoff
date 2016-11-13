@@ -1,3 +1,4 @@
+
 from setuptools import setup
 
 import os
@@ -9,7 +10,7 @@ setup(
     name='pymarkoff',
     author='Christopher Chen',
     author_email='christopher.chen1995@gmail.com',
-    version='0.4.3',
+    version='0.4.4',
     description="""A simple Markov chain modeller and generator for word and sentence generation.""",
     long_description=long_description,
     classifiers=[
