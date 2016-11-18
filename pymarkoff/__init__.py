@@ -16,6 +16,7 @@ import pydot
 from collections import Counter
 import pdb
 
+
 class InvalidStateError(Exception):
 
     """A simple exception to indicate when Markov is trying to reference
@@ -37,6 +38,12 @@ class Anchor():
         if isinstance(other, str):
             return -1
 
+    def __str__(self):
+        return "Anchor()"
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class Head(Anchor):
 
@@ -44,7 +51,7 @@ class Head(Anchor):
     Don't bother reading about this"""
 
     def __str__(self):
-        return self.description if self.description else "[Head]"
+        return self.description if not self.description is None else "[Head]"
 
     def __repr__(self):
         return "Head()"
@@ -69,22 +76,25 @@ class Markov:
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
 
-    def __init__(self, seeds=None, orders=(0,), discrete_mode=True):
+    def __init__(self, seeds=None, orders=(0,), discrete=True):
         """Seeds should be an iterable of iterables.
         This is so that entry points can be determined automatically.
-        discrete_mode=True Enables analysis of chains as having start and end points.
-        discrete_mode=False treats all chains as a continuous time series, more or less.
-        When discrete_mode=False, each seed must have 2 states.
+        discrete=True Enables analysis of chains as having specific start and end points.
+        discrete=False treats all chains as a continuous time series, more or less.
+        When discrete=False, each seed must have 2 states.
         That is in order to establish a transition."""
         if seeds is None:
-            seeds = []
+            raise ValueError("Must provide seeds!")
+        for i in orders:
+            if i <0:
+                raise ValueError("{} is an invalid order for analysis!".format(i))
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = dict()
         # force orders to be descending
         self.orders = tuple(sorted(orders)[::-1])
         # self.cur_state = self.start
-        self.discrete = discrete_mode
+        self.discrete = discrete
         self.feed(seeds)
 
     def feed(self, seeds) -> None:
@@ -95,7 +105,7 @@ class Markov:
 
         """
         for seed in seeds:
-            # go throug each seed
+            # go through each seed
 
             # Handle string seeds
             if isinstance(seed, str):
@@ -111,9 +121,10 @@ class Markov:
                     try:
                         # assume that the given state has been previously
                         # recorded
+                        # pdb.set_trace()
                         head = tuple(
                             s for s in seed[i:i + cur_order + 1] if len(s) > 0)
-
+                        # print(Head() in head)
                         tail = seed[i + cur_order + 1]
                         self.transitions[head].update([tail])
                     except KeyError:
@@ -157,7 +168,7 @@ class Markov:
         while i <= max_length and not isinstance(state, Tail):
             # check for transitions in the highest allowed order first
             # then check lower orders (which are more likely to have a hit).
-            for cur_order in self.orders[::-1]:
+            for cur_order in sorted(self.orders)[::-1]:
                 try:
                     # reach back for a sequence of states of length less equal
                     # to the current order.
@@ -203,8 +214,9 @@ class Markov:
         g = pydot.Dot()
         for k, v in dict(self).items():
             for target in v:
-                weight = v[target]/sum(v.values())
-                g.add_edge(pydot.Edge(str(k), str((target,)), label="{:.2f}".format(weight)))
+                weight = v[target] / sum(v.values())
+                g.add_edge(pydot.Edge(str(k), str((target,)),
+                                      label="{:.2f}".format(weight)))
         return g
 
 
@@ -282,7 +294,8 @@ Whenever the black fox jumped the squirrel gazed suspiciously.
 Five quacking zephyrs jolt my wax bed.
 Do wafting zephyrs quickly vex Jumbo?"""
 
-    brain = from_words(mystr)
+    brain = from_words(mystr, orders=(0,))
+    brain = Markov([list(i) for i in mystr.split('\n')], orders=(0,))
     brain.to_graph().write_png("img/OW Names.png")
     # seeds = [i.split(' ') for i in seeds]
     # print(dict(brain).keys())
@@ -291,6 +304,11 @@ Do wafting zephyrs quickly vex Jumbo?"""
     bbrain = from_sentences(seeds)
     bbrain.to_graph().write_png("img/pangrams.png")
     print(bbrain.next_sentence())
+
+    bananas = from_words("Bananas",orders=tuple(range(10)))
+    bananas.to_graph().write_png("img/bananas.png")
+    print([bananas.next_word() for i in range(10)])
+    # print(sorted(dict(bbrain).keys()))
     # print(brain.next_sentence())
     # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
 if __name__ == '__main__':
