@@ -26,6 +26,6 @@ setup(
     license='Public Domain',
     packages=['pymarkoff'],
     download_url="https://bitbucket.org/TheCDC/pymarkoff/get/HEAD.zip",
-    install_requires=[],
+    install_requires=['pydot'],
     zip_safe=True
 )
