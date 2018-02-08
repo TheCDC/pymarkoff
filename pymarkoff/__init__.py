@@ -5,7 +5,6 @@ Use the from_sentences() or from_words() depending on the format of your data.
 
 """
 
-
 import pprint as pp
 import re
 import random
@@ -18,20 +17,18 @@ import pdb
 
 
 class InvalidStateError(Exception):
-
     """A simple exception to indicate when Markov is trying to reference
     a nonexistent state."""
     pass
 
 
 class Anchor():
-
     """A parent class for chain anchors."""
 
     def __init__(self, s=None):
         self.description = s
 
-    def __len__(self,):
+    def __len__(self, ):
         return 0
 
     def __cmp__(self, other):
@@ -46,7 +43,6 @@ class Anchor():
 
 
 class Head(Anchor):
-
     """A dummy class used internally to anchor the beginning of an input chain.
     Don't bother reading about this"""
 
@@ -58,7 +54,6 @@ class Head(Anchor):
 
 
 class Tail(Anchor):
-
     """A dummy class used internally to anchor the end of an input chain.
     Don't bother reading about this"""
 
@@ -70,13 +65,12 @@ class Tail(Anchor):
 
 
 class Markov:
-
     """A Markov Chain modeller and sequence generator using the model.
     Get a lot of input and produce a short output multiple times.
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
 
-    def __init__(self, seeds=None, orders=(0,), discrete=True):
+    def __init__(self, seeds=None, orders=(0, ), discrete=True):
         """Seeds should be an iterable of iterables.
         This is so that entry points can be determined automatically.
         discrete=True Enables analysis of chains as having specific start and end points.
@@ -86,8 +80,9 @@ class Markov:
         if seeds is None:
             raise ValueError("Must provide seeds!")
         for i in orders:
-            if i <0:
-                raise ValueError("{} is an invalid order for analysis!".format(i))
+            if i < 0:
+                raise ValueError(
+                    "{} is an invalid order for analysis!".format(i))
         if 0 not in orders:
             raise ValueError("0 is a required order.")
         self.transitions = dict()
@@ -122,8 +117,7 @@ class Markov:
                         # assume that the given state has been previously
                         # recorded
                         # pdb.set_trace()
-                        head = tuple(
-                            s for s in seed[i:i + cur_order + 1] if len(s) > 0)
+                        head = tuple(s for s in seed[i:i + cur_order + 1])
                         # print(Head() in head)
                         tail = seed[i + cur_order + 1]
                         self.transitions[head].update([tail])
@@ -144,16 +138,11 @@ class Markov:
         """
         try:
             choice = weighted_random(
-                *list(
-                    zip(
-                        *list(
-                            self.transitions[state].items())[::-1]
-                    )
-                )
-            )
+                *list(zip(*list(self.transitions[state].items())[::-1])))
         except KeyError:
             raise InvalidStateError("state {} never fed in. Brain:{}".format(
-                repr(state), dict(self).keys()))
+                repr(state),
+                dict(self).keys()))
         return choice
 
     def generate(self, *, max_length=100) -> list:
@@ -215,8 +204,10 @@ class Markov:
         for k, v in dict(self).items():
             for target in v:
                 weight = v[target] / sum(v.values())
-                g.add_edge(pydot.Edge(str(k), str((target,)),
-                                      label="{:.2f}".format(weight)))
+                g.add_edge(
+                    pydot.Edge(
+                        str(k), str((target, )),
+                        label="{:.2f}".format(weight)))
         return g
 
 
@@ -294,8 +285,8 @@ Whenever the black fox jumped the squirrel gazed suspiciously.
 Five quacking zephyrs jolt my wax bed.
 Do wafting zephyrs quickly vex Jumbo?"""
 
-    brain = from_words(mystr, orders=(0,))
-    brain = Markov([list(i) for i in mystr.split('\n')], orders=(0,))
+    brain = from_words(mystr, orders=(0, ))
+    brain = Markov([list(i) for i in mystr.split('\n')], orders=(0, ))
     brain.to_graph().write_png("img/OW Names.png")
     # seeds = [i.split(' ') for i in seeds]
     # print(dict(brain).keys())
@@ -305,12 +296,14 @@ Do wafting zephyrs quickly vex Jumbo?"""
     bbrain.to_graph().write_png("img/pangrams.png")
     print(bbrain.next_sentence())
 
-    bananas = from_words("Bananas",orders=tuple(range(10)))
+    bananas = from_words("Bananas", orders=tuple(range(10)))
     bananas.to_graph().write_png("img/bananas.png")
     print([bananas.next_word() for i in range(10)])
     # print(sorted(dict(bbrain).keys()))
     # print(brain.next_sentence())
     # results_f = [' '.join(m.generate(max_length=30)) for i in range(10)]
+
+
 if __name__ == '__main__':
     main()
 
