@@ -52,6 +52,12 @@ class Head(Anchor):
     def __repr__(self):
         return "Head()"
 
+    def __hash__(self):
+        return hash('Head object for pymarkoff')
+
+    def __eq__(self,other):
+        return isinstance(other, Head)
+
 
 class Tail(Anchor):
     """A dummy class used internally to anchor the end of an input chain.
@@ -70,7 +76,7 @@ class Markov:
     Input should be lists of strings beginning with an emptystring.
     The Head object is used as the entry point every time generate() is called."""
 
-    def __init__(self, seeds=None, orders=(0, ), discrete=True):
+    def __init__(self, seeds=None, orders=(1, ), discrete=True):
         """Seeds should be an iterable of iterables.
         This is so that entry points can be determined automatically.
         discrete=True Enables analysis of chains as having specific start and end points.
@@ -83,8 +89,6 @@ class Markov:
             if i < 0:
                 raise ValueError(
                     "{} is an invalid order for analysis!".format(i))
-        if 0 not in orders:
-            raise ValueError("0 is a required order.")
         self.transitions = dict()
         # force orders to be descending
         self.orders = tuple(sorted(orders)[::-1])
@@ -117,9 +121,9 @@ class Markov:
                         # assume that the given state has been previously
                         # recorded
                         # pdb.set_trace()
-                        head = tuple(s for s in seed[i:i + cur_order + 1])
+                        head = tuple(s for s in seed[i:i + cur_order])
                         # print(Head() in head)
-                        tail = seed[i + cur_order + 1]
+                        tail = seed[i + cur_order]
                         self.transitions[head].update([tail])
                     except KeyError:
                         # If the current state has not been seen before,
@@ -137,8 +141,9 @@ class Markov:
                 Out: 'a'
         """
         try:
+            state_transitions = self.transitions[state]
             choice = weighted_random(
-                *list(zip(*list(self.transitions[state].items())[::-1])))
+                *list(zip(*list(state_transitions.items())[::-1])))
         except KeyError:
             raise InvalidStateError("state {} never fed in. Brain:{}".format(
                 repr(state),
@@ -150,32 +155,40 @@ class Markov:
         Simulation starts from a state chosen from known head states
         and ends at either a known terminating state or when the chain
         reaches max_length, whichever comes first."""
-        result = []
         state = Head()
+        result = [state]
         choice = state
         i = 0
+        sorted_orders = sorted(self.orders)[::-1]
+        import pudb
+        pudb.set_trace()
         while i <= max_length and not isinstance(state, Tail):
             # check for transitions in the highest allowed order first
             # then check lower orders (which are more likely to have a hit).
-            for cur_order in sorted(self.orders)[::-1]:
+            for cur_order in sorted_orders:
                 try:
                     # reach back for a sequence of states of length less equal
                     # to the current order.
-                    temp_state = tuple(result[-(cur_order + 1):len(result)])
+                    temp_state = tuple(result[len(result)-(cur_order):len(result)])
                     # choice = random.choice(self.transitions[temp_state])
                     choice = self.get_next(temp_state)
+                    print(choice)
                     break
-                except InvalidStateError:
+                except InvalidStateError as e: 
                     # An InvalidStateError happens when there aren't transitions for an
                     # arbitrary higher order state
                     # In which case, carry on and continue to the next lowest
                     # order.
+                    # raise e
                     pass
 
             state = choice
             result.append(choice)
             i += 1
-        return result[:-1]  # slice off the tail
+        # slice off the head and  tail
+        result.pop(0)
+        result.pop(-1)
+        return result  
 
     def next_word(self, *args, **kwargs) -> str:
         """Treat chain generator output as a word and format accordingly.
@@ -285,11 +298,13 @@ Whenever the black fox jumped the squirrel gazed suspiciously.
 Five quacking zephyrs jolt my wax bed.
 Do wafting zephyrs quickly vex Jumbo?"""
 
-    brain = from_words(mystr, orders=(0, ))
-    brain = Markov([list(i) for i in mystr.split('\n')], orders=(0, ))
+    brain = from_words(mystr, orders=(1, ))
+    # brain = from_sentences(mystr, orders=(0, ))
     brain.to_graph().write_png("img/OW Names.png")
     # seeds = [i.split(' ') for i in seeds]
     # print(dict(brain).keys())
+    pp.pprint(brain.transitions)
+    pp.pprint(brain.transitions[('g',)])
     # print(brain.get_next(("the",)))
     print([brain.next_word() for i in range(10)])
     bbrain = from_sentences(seeds)
