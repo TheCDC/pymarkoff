@@ -123,8 +123,12 @@ class Markov:
                 for o in orders_buffer.keys():
                     if len(short_memory) < o + 1:
                         break
+                    # find the slice the includes the order-n state and its
+                    # output
                     run = list(islice(short_memory, 0, o + 2))
+                    # the order-n state
                     head = tuple(run[:-1])
+                    # output
                     tail = run[-1]
                     # update the transition table
                     try:
