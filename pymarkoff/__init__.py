@@ -263,7 +263,7 @@ def from_words(source, *args, delimiter='\n', **kwargs) -> Markov:
     Returns a Markov object that produces words.
     Input should be words separated by newlines or else by [delimiter]
     """
-    chains = [list(i) for i in source.split(delimiter)]
+    chains = [list(i) for i in source.split()]
     return Markov(chains, *args, **kwargs)
 
 
