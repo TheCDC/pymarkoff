@@ -35,11 +35,17 @@ class Anchor():
         if isinstance(other, str):
             return -1
 
+    def __eq__(self, other):
+        return type(self) == type(other)
+
     def __str__(self):
         return "Anchor()"
 
     def __repr__(self):
         return self.__str__()
+
+    def __hash__(self):
+        return hash((type(self), ))
 
 
 class Head(Anchor):
@@ -47,16 +53,10 @@ class Head(Anchor):
     Don't bother reading about this"""
 
     def __str__(self):
-        return self.description if not self.description is None else "[Head]"
+        return self.description if self.description else "[Head]"
 
     def __repr__(self):
         return "Head()"
-
-    def __hash__(self):
-        return hash('Head object for pymarkoff')
-
-    def __eq__(self,other):
-        return isinstance(other, Head)
 
 
 class Tail(Anchor):
@@ -169,12 +169,13 @@ class Markov:
                 try:
                     # reach back for a sequence of states of length less equal
                     # to the current order.
-                    temp_state = tuple(result[len(result)-(cur_order):len(result)])
+                    temp_state = tuple(
+                        result[len(result) - (cur_order):len(result)])
                     # choice = random.choice(self.transitions[temp_state])
                     choice = self.get_next(temp_state)
                     print(choice)
                     break
-                except InvalidStateError as e: 
+                except InvalidStateError as e:
                     # An InvalidStateError happens when there aren't transitions for an
                     # arbitrary higher order state
                     # In which case, carry on and continue to the next lowest
@@ -188,7 +189,7 @@ class Markov:
         # slice off the head and  tail
         result.pop(0)
         result.pop(-1)
-        return result  
+        return result
 
     def next_word(self, *args, **kwargs) -> str:
         """Treat chain generator output as a word and format accordingly.
@@ -304,7 +305,7 @@ Do wafting zephyrs quickly vex Jumbo?"""
     # seeds = [i.split(' ') for i in seeds]
     # print(dict(brain).keys())
     pp.pprint(brain.transitions)
-    pp.pprint(brain.transitions[('g',)])
+    pp.pprint(brain.transitions[('g', )])
     # print(brain.get_next(("the",)))
     print([brain.next_word() for i in range(10)])
     bbrain = from_sentences(seeds)
