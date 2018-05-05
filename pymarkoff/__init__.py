@@ -103,6 +103,7 @@ class Markov:
         I.e. m = pymarkoff.Markov()
         m.feed([['The','quick','brown','fox','jumped','over','the','lazy','dog.']])
         m.generate() => ['The','lazy','dog.']
+        m.generate() => ['The','quick','brown','fox','jumped','over','the','lazy','dog.']
 
         """
         for seed in seeds:
