@@ -121,6 +121,7 @@ class Markov:
                 short_memory.append(state)
                 # slice the window based on orders being modelled
                 for o in orders_buffer.keys():
+                    # guard against not enough states in window
                     if len(short_memory) < o + 1:
                         break
                     # find the slice the includes the order-n state and its
