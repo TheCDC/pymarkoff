@@ -7,6 +7,7 @@ from collections import Counter
 class TestHelpers(unittest.TestCase):
 
     def test_from_sentences(self):
+        self.maxDiff = None
         b = pymarkoff.from_sentences(
             """The quick brown fox jumped over the lazy dog.
 Jack and Jill ran up the hill to fetch a pail of water.""")
@@ -82,7 +83,7 @@ Jack and Jill ran up the hill to fetch a pail of water.""")
             })
         }
 
-        # print(b)
+        # print('sentences', b)
         self.assertEqual(b.transitions, target)
 
     def test_from_words(self):
@@ -263,13 +264,14 @@ Jack and Jill ran up the hill to fetch a pail of water.""")
 class TestInputOutput(unittest.TestCase):
 
     def test_simple_transitions_order_1(self):
-        b = pymarkoff.Markov(seeds=['a'])
+        b = pymarkoff.Markov(seeds=['aaa'])
         target = {
             (pymarkoff.Head(), ): Counter({
                 'a': 1
             }),
             ('a', ): pymarkoff.Counter({
-                pymarkoff.Tail(): 1
+                pymarkoff.Tail(): 1,
+                'a': 2,
             })
         }
         self.assertEqual(b.transitions, target)

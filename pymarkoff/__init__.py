@@ -14,6 +14,8 @@ import bisect
 import pydot
 from collections import Counter
 import pdb
+import queue
+from itertools import islice, chain
 
 
 class InvalidStateError(Exception):
@@ -105,32 +107,29 @@ class Markov:
         """
         for seed in seeds:
             # go through each seed
-
-            # Handle string seeds
-            if isinstance(seed, str):
-                seed = list(seed)
-            # prep it if in discrete mode.
+            orders_buffer = {o: list() for o in self.orders}
+            # store only a moving window of the input chains
+            short_memory = queue.deque([], max(self.orders) + 1)
+            extra_bits = []
+            # handle the the input being separate chains
             if self.discrete:
-                seed = [Head()] + seed + [Tail()]
-            # go through all user-specified orders
-            # or 'state lengths'
+                short_memory.append(Head())
+                extra_bits.append(Tail())
 
-            for cur_order in self.orders:
-                for i in range(len(seed) - cur_order):
+            for state in chain(seed, extra_bits):
+                short_memory.append(state)
+                # slice the window based on orders being modelled
+                for o in orders_buffer.keys():
+                    if len(short_memory) < o + 1:
+                        break
+                    run = list(islice(short_memory, 0, o + 2))
+                    head = tuple(run[:-1])
+                    tail = run[-1]
+                    # update the transition table
                     try:
-                        # assume that the given state has been previously
-                        # recorded
-                        # pdb.set_trace()
-                        head = tuple(s for s in seed[i:i + cur_order])
-                        # print(Head() in head)
-                        tail = seed[i + cur_order]
                         self.transitions[head].update([tail])
                     except KeyError:
-                        # If the current state has not been seen before,
-                        # record it.
                         self.transitions[head] = Counter([tail])
-                    except IndexError:
-                        pass
 
     def get_next(self, state):
         """Exposed Internal helper function.
